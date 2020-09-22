@@ -1,6 +1,6 @@
 ---
 title: Home
-kind: single
+# kind: single
 layout: single
 weight: 1
 show_in_menu: true

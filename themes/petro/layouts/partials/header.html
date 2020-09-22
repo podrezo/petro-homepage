@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>{{ .Site.Title }}</title>
+
+  {{ $style := resources.Get "bootstrap-customization.scss" | resources.ToCSS | resources.Minify | resources.Fingerprint }}
+  <link rel="stylesheet" href="{{ $style.Permalink }}">
+
+</head>
+
+<body>
+  <!-- Page Content -->
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-lg-12">
+        <h1>{{ .Site.Title }}</h1>
+        <hr/>
+        <ul class="nav">
+          {{ range .Site.Pages.ByWeight}}
+            {{ if .Params.show_in_menu }}
+              <li class="nav-item">
+                <a class="nav-link" href="{{ .Permalink }}">{{ .Title }}</a>
+              </li>
+            {{ end }}
+          {{ end }}
+        </ul>
+      </div>
+    </div>

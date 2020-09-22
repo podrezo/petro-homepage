@@ -1,6 +1,6 @@
 ---
 title: Home Page
-layout: single
+kind: single
 show_in_menu: true
 ---
 

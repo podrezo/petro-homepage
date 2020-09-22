@@ -1,6 +1,6 @@
 <a href="{{ .Get "href" }}" target="_blank" class="btn btn-lg btn-secondary">
-  {{ if .Get "icon" }}
-    <i class="fab fa-{{.Get "icon"}}"></i>&nbsp;
+  {{ if .Get "iconclass" }}
+    <i class="{{.Get "iconclass"}}"></i>&nbsp;
   {{ end }}
-  View my blog on Medium
+  {{ .Get "text" }}
 </a>

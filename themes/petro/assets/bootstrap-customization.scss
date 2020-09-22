@@ -5,6 +5,10 @@
   src: url("fonts/Dosis-Regular.ttf") format("truetype");
 }
 
+.red {
+  color: #BF0F30;
+}
+
 $font-family-sans-serif: 'Dosis', -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !default;
 // $font-family-serif:      Georgia, "Times New Roman", Times, serif !default;
 // $font-family-monospace:  Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
@@ -14,3 +18,4 @@ $font-family-base:       $font-family-sans-serif !default;
 @import "./bootstrap/bootstrap.scss";
 @import "./fontawesome/fontawesome.scss";
 @import "./fontawesome/brands.scss";
+@import "./fontawesome/solid.scss";

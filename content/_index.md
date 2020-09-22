@@ -1,6 +1,7 @@
 ---
 title: Home Page
-layout: page
+layout: single
+show_in_menu: true
 ---
 
 Nice to meet you!

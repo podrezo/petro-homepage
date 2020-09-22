@@ -23,7 +23,7 @@
         <h1>{{ .Site.Title }}</h1>
         <hr/>
         <ul class="nav">
-          {{ range .Site.Pages}}
+          {{ range .Site.Pages.ByWeight}}
             {{ if .Params.show_in_menu }}
               <li class="nav-item">
                 <a class="nav-link" href="{{ .Permalink }}">{{ .Title }}</a>

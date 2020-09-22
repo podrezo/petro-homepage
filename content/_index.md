@@ -1,6 +1,8 @@
 ---
-title: Home Page
+title: Home
 kind: single
+layout: single
+weight: 1
 show_in_menu: true
 ---
 

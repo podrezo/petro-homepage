@@ -10,8 +10,7 @@
 
   <title>{{ .Site.Title }}</title>
 
-  <!-- Bootstrap core CSS -->
-  {{ $style := resources.Get "bootstrap/bootstrap.scss" | resources.ToCSS | resources.Minify | resources.Fingerprint }}
+  {{ $style := resources.Get "bootstrap-customization.scss" | resources.ToCSS | resources.Minify | resources.Fingerprint }}
   <link rel="stylesheet" href="{{ $style.Permalink }}">
 
 </head>

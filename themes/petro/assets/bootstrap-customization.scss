@@ -12,3 +12,5 @@ $font-family-base:       $font-family-sans-serif !default;
 
 // Bootstrap and its default variables
 @import "./bootstrap/bootstrap.scss";
+@import "./fontawesome/fontawesome.scss";
+@import "./fontawesome/brands.scss";

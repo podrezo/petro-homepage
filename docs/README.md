@@ -1,0 +1,1 @@
+This directory is the one that gets output to github pages. The CNAME file must exist here for github to issue the appropriate certificates though the rest of the files in this directory will be compiled by hugo.

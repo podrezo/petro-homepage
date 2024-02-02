@@ -60,3 +60,8 @@ $font-family-base:       $font-family-sans-serif !default;
     margin: 1em;
   }
 }
+
+dt {
+  color: $secondary;
+  font-weight: bold;
+}

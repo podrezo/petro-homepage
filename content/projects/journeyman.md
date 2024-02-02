@@ -1,6 +1,6 @@
 ---
 title: Journeyman
-image: /images/journeyman.jpg
+image: /images/projects/journeyman.jpg
 summary: My travel blog.
 ---
 

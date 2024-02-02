@@ -57,7 +57,6 @@ ISBN
 Description
 : Refactoring improves the design of existing code and enhances software maintainability, as well as making existing code easier to understand. Original Agile Manifesto signer and software development thought leader, Martin Fowler, provides a catalog of refactorings that explains why you should refactor; how to recognize code that needs refactoring; and how to actually do it successfully, no matter what language you use. This book is referenced a lot in the "99 Bottles" book I mentioned earlier. I have not personally read it but I've learned a lot of the concepts from it through colleagues that speak highly of it.
 
-
 ***
 
 Title

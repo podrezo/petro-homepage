@@ -26,6 +26,7 @@ $dark: #343a40;
   font-size: 0.8em;
 }
 
+
 $font-family-sans-serif: 'Dosis', -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !default;
 // $font-family-serif:      Georgia, "Times New Roman", Times, serif !default;
 // $font-family-monospace:  Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
@@ -36,3 +37,26 @@ $font-family-base:       $font-family-sans-serif !default;
 @import "./fontawesome/fontawesome.scss";
 @import "./fontawesome/brands.scss";
 @import "./fontawesome/solid.scss";
+
+
+.item-grid {
+  display: grid;
+  grid-auto-rows: 1fr;
+
+  // Default to 1 column for xs
+  grid-template-columns: 1fr;
+
+  // md breakpoint (768px and above): 2 columns
+  @include media-breakpoint-up(md) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  // lg breakpoint (992px and above): 3 columns
+  @include media-breakpoint-up(lg) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .item-grid-item {
+    margin: 1em;
+  }
+}

@@ -1,7 +1,7 @@
 ---
 title: Team Dynamics & Daily Life
 image: /images/mentorship/team.png
-summary: COMING SOON! Engineers, Designers, and QAs, oh my!
+summary: Engineers, Designers, and QAs, oh my!
 ---
 
 ## Team Structure

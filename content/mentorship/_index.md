@@ -15,4 +15,4 @@ From a young age, I was always fascinated by computers and the endless possibili
 
 Throughout my years of experience, I've worked at small, medium and large companies in many different industries. Looking back, my career is dotted with many proud moments and achievements not only in terms of building software that reaches and impacts people's lives, but also teaching and mentoring others, running bootcamps, and sharing the knowledge I've accumulated.
 
-I recommend heading over to the [Starting Off](/mentorship/starting_off) page to get a sense of what to expect from a mentorship with me and to see some great questions to ask a mentor.
+I recommend heading over to the [Starting Off](/mentorship/starting_off) page to get a sense of what to expect from a mentorship with me and to see some great questions to ask a mentor. I've also [written an article over on medium](https://podrezo.medium.com/advice-for-starting-out-in-career-programming-8690b6f61399) titled "Advice for starting out in career programming" which may be of interest to you.

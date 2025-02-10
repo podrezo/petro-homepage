@@ -1,11 +1,10 @@
-name: github pages
+name: GitHub Pages
 
 on:
   push:
     branches:
-      - master  # Set a branch to deploy
-permissions:
-  contents: write
+      - master
+
 jobs:
   deploy:
     runs-on: ubuntu-22.04
@@ -18,14 +17,12 @@ jobs:
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
 
       - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v2
+        uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: '0.122.0'
+          hugo-version: '0.140.2'
           extended: true
-
       - name: Build
         run: hugo --minify
-
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         if: github.ref == 'refs/heads/master'

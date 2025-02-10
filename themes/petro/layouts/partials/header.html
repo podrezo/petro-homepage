@@ -11,7 +11,7 @@
 
   <link rel="icon" type="image/svg+xml" href="/lego.svg">
   <link rel="alternate icon" ype="image/png" href="/lego.png">
-  {{ $style := resources.Get "root.scss" | resources.ToCSS | resources.Minify | resources.Fingerprint }}
+  {{ $style := resources.Get "root.scss" | css.Sass | resources.Minify | resources.Fingerprint }}
   <link rel="stylesheet" href="{{ $style.Permalink }}">
 
 </head>

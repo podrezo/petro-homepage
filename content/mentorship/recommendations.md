@@ -74,13 +74,14 @@ ISBN
 Description
 : This book is an insightful guide to test-driven development in object-oriented software engineering. It covers the creation of software that's resilient to change and meets the needs of its users, guided by a robust suite of tests. I'll be honest, I have not read this one but it comes highly recommended by many people I respect.
 
-
 ## Videos
 
 The following lectures are by Jason Cheong-Kee-You, a software engineer and great colleague and teacher I had the pleasure of working with some years ago. The two talks are related but not directly so. The first is about Agile and the second is about coding. I highly recommend both.
 
 - [“Why Agile?”](https://www.youtube.com/watch?v=y7oj27Vq57I) by Jason Cheong-Kee-You
 - [“How to code”](https://www.youtube.com/watch?v=GU5j6sfPMeg&ab_channel=JasonCheong-Kee-You) by Jason Cheong-Kee-You
+
+As as sidenote, he's got a [wiki on github](https://github.com/jchunky/notes/wiki) with many other resources (including non-software topics) that I'd recommend checking out.
 
 ## Podcasts
 

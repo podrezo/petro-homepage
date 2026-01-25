@@ -1,6 +1,6 @@
 ---
 title: How to Rock an Online Presentation
-image: /images/mentorship/big-miro.png
+image: /images/mentorship/presentation.png
 summary: Discover how to transform your next online presentation from a monologue to a dialogue, engaging audiences in a way they never forget
 ---
 

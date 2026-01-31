@@ -10,16 +10,18 @@
 
 <div class="item-grid mt-4">
   {{ range .Pages }}
-    <div class="item-grid-item card">
+    <a href="{{ .Permalink }}" class="item-grid-item card" style="text-decoration: none; color: inherit;">
       {{ with .Params.Image }}
         <img src="{{ . }}" class="card-img-top"/>
       {{ end }}
-      <div class="card-body">
+      <div class="card-body d-flex flex-column">
         <h5 class="card-title">{{ .Title }}</h5>
         <p class="card-text">{{ .Params.Summary }}</p>
-        <a href="{{ .Permalink }}" class="btn btn-primary">View Details</a>
+        <div class="mt-auto d-flex justify-content-end">
+          <span class="small">See Details →</span>
+        </div>
       </div>
-    </div>
+    </a>
   {{ end }}
 </div>
 

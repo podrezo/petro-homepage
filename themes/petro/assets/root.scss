@@ -46,9 +46,6 @@ $link-color:    darken($primary, 10%) !default;  // Link color
 
 // Bootstrap and its default variables
 @import "./bootstrap/bootstrap.scss";
-@import "./fontawesome/fontawesome.scss";
-@import "./fontawesome/brands.scss";
-@import "./fontawesome/solid.scss";
 
 
 .item-grid {

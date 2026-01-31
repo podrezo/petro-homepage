@@ -1,6 +1,7 @@
+{{- $iconName := .Get "icon" -}}
 <p class="text-center mt-4"><a href="{{ .Get "href" }}" target="_blank" class="btn btn-lg btn-secondary">
-  {{ if .Get "iconclass" }}
-    <i class="{{.Get "iconclass"}}"></i>&nbsp;
+  {{ if $iconName }}
+    <img src="/images/icons/{{ $iconName }}.svg" alt="icon" style="height: 1em; width: 1em; display: inline; vertical-align: -0.125em; margin-right: 0.5em;">
   {{ end }}
   {{ .Get "text" }}
 </a></p>

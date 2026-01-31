@@ -4,11 +4,11 @@ weight: 100
 show_in_menu: true
 ---
 
-{{< icon class="fas fa-envelope fa-fw">}} Email
+{{< icon name="at-solid-full" >}} Email
 : petro@podrezo.com
 
-{{< icon class="fab fa-linkedin" >}} LinkedIn
+{{< icon name="linkedin-brands-solid-full" >}} LinkedIn
 : [podrezo](https://ca.linkedin.com/in/podrezo)
 
-{{< icon class="fab fa-bluesky" >}} Bluesky
+{{< icon name="square-bluesky-brands-solid-full" >}} Bluesky
 : [podrezo.com](https://bsky.app/profile/podrezo.com)

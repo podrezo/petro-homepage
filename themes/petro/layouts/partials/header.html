@@ -9,8 +9,8 @@
 
   <title>{{ .Site.Title }}: {{ .Page.Title }}</title>
 
-  <link rel="icon" type="image/svg+xml" href="/lego.svg">
-  <link rel="alternate icon" ype="image/png" href="/lego.png">
+  <link rel="icon" type="image/svg+xml" href="/braces.svg">
+  <link rel="alternate icon" ype="image/png" href="/braces.png">
   {{ $style := resources.Get "root.scss" | css.Sass | resources.Minify | resources.Fingerprint }}
   <link rel="stylesheet" href="{{ $style.Permalink }}">
 
@@ -21,7 +21,7 @@
   <div class="container mt-5">
     <div class="row mb-4">
       <div class="col-lg-8">
-        <h1 class="title"><img src="/lego.svg" type="image/svg+xml"/> {{ .Site.Title }} <small>Software Engineer</small></h1>
+        <h1 class="title"><img src="/braces.svg" type="image/svg+xml"/> {{ .Site.Title }} <small>Software Engineer</small></h1>
         <hr/>
         <ul class="nav">
           {{ range .Site.Pages.ByWeight}}

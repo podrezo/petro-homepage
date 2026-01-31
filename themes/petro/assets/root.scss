@@ -33,6 +33,12 @@ $code-color:    $dark !default;  // Code text color
 $pre-color:     $dark !default;   // Pre text color
 $link-color:    darken($primary, 10%) !default;  // Link color
 
+// CSS variables for use in browser
+:root {
+  --color-primary: #1A7972;
+  --color-secondary: #C3297E;
+}
+
 .title {
   img {
     height: 1.2em;

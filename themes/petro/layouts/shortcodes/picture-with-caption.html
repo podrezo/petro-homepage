@@ -1,0 +1,8 @@
+{{ $image := .Get "image" }}
+{{ $caption := .Get "caption" }}
+{{ $alt := .Get "alt" }}
+
+<div class="text-center mb-4">
+  <img src="{{ $image }}" alt="{{ $alt }}" class="img-fluid rounded shadow">
+  <p class="text-muted mt-2"><em>{{ $caption }}</em></p>
+</div>

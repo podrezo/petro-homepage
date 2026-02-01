@@ -1,8 +1,13 @@
 {{ $image := .Get "image" }}
 {{ $caption := .Get "caption" }}
 {{ $alt := .Get "alt" }}
+{{ $maxWidth := .Get "max-width" }}
 
 <div class="text-center mb-4">
-  <img src="{{ $image }}" alt="{{ $alt }}" class="img-fluid rounded shadow">
+  {{ if $maxWidth }}
+    <img src="{{ $image }}" alt="{{ $alt }}" class="img-fluid rounded shadow" style="max-width: {{ $maxWidth }};">
+  {{ else }}
+    <img src="{{ $image }}" alt="{{ $alt }}" class="img-fluid rounded shadow">
+  {{ end }}
   <p class="text-muted mt-2"><em>{{ $caption }}</em></p>
 </div>

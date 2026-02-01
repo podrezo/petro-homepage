@@ -23,14 +23,16 @@
       <div class="col-lg-8">
         <h1 class="title"><img src="/braces.svg" type="image/svg+xml"/> {{ .Site.Title }} <small>Senior Software Engineer</small></h1>
         <hr/>
-        <ul class="nav">
-          {{ range .Site.Pages.ByWeight}}
-            {{ if .Params.show_in_menu }}
-              <li class="nav-item">
-                <a class="nav-link" href="{{ .Permalink }}">{{ .Title }}</a>
-              </li>
+        <nav>
+          <ul class="nav">
+            {{ range .Site.Pages.ByWeight}}
+              {{ if .Params.show_in_menu }}
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ .Permalink }}">{{ .Title }}</a>
+                </li>
+              {{ end }}
             {{ end }}
-          {{ end }}
-        </ul>
+          </ul>
+        </nav>
       </div>
     </div>

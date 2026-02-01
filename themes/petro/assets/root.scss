@@ -19,20 +19,46 @@ $font-family-sans-serif: 'Dosis', -apple-system, system-ui, BlinkMacSystemFont, 
 // $font-family-monospace:  Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
 $font-family-base:       $font-family-sans-serif !default;
 
-$light: #B39540 !default;  // Yellow
+// Monokai theme https://gist.github.com/r-malon/8fc669332215c8028697a0bbfbfbb32a?permalink_comment_id=5697686#gistcomment-5697686
+$white: #d6d6d6 !default;
+$black: #272822 !default;
+
+$yellow: #E6DB74 !default;
+$green: #A6E22E !default;
+$orange: #FD971F !default;
+$purple: #AE81FF !default;
+$pink: #F92672 !default;
+// Not defined: $blue, $indigo, $purple, $pink, $red, $cyan
+
+$gray-100: lighten($black, 90%) !default;
+$gray-200: lighten($black, 80%) !default;
+$gray-300: lighten($black, 70%) !default;
+$gray-400: lighten($black, 60%) !default;
+$gray-500: lighten($black, 50%) !default;
+$gray-600: lighten($black, 40%) !default;
+$gray-700: lighten($black, 30%) !default;
+$gray-800: lighten($black, 20%) !default;
+$gray-900: lighten($black, 10%) !default;
+
+$dark:          $gray-900 !default;
+$light:         $gray-300 !default;
+
+$body-color: $light !default;
+$alt-background-color: $gray-900;
 
 // Custom color variables
-$primary:       #1A7972 !default;  // Turquoise
-$secondary:     #C3297E !default;  // Pink
-$body-bg:       lighten($light, 30%) !default;  // Yellow
-$breadcrumb-bg: lighten($light, 15%) !default;  // Lighter yellow for breadcrumbs
-$breadcrumb-active-color: $primary !default;  // Breadcrumb active text color
-$card-bg:       $breadcrumb-bg !default;  // Card background same as breadcrumb
-$dark:          darken($secondary, 25%) !default;
-$code-color:    $dark !default;  // Code text color
-$pre-color:     $dark !default;   // Pre text color
-$link-color:    darken($primary, 10%) !default;  // Link color
-$text-muted:    darken($light, 15%) !default;  // Muted text color
+$primary:       $pink !default;
+$secondary:     $purple !default;
+$body-bg:       $black !default;
+$breadcrumb-active-color: $gray-400 !default;
+$breadcrumb-bg: $alt-background-color;
+$card-bg: $alt-background-color !default;
+$link-color:    $green !default;
+$text-muted: $gray-700 !default;
+$hr-border-color: $gray-700 !default;
+
+$line-height-base:            1.7 !default;
+$font-size-base:              1.1rem !default;
 
 .title {
   img {
@@ -41,7 +67,7 @@ $text-muted:    darken($light, 15%) !default;  // Muted text color
   }
   small {
     font-size: 0.6em;
-    color: $dark;
+    color: $text-muted;
   }
 }
 
@@ -72,7 +98,7 @@ $text-muted:    darken($light, 15%) !default;  // Muted text color
 }
 
 dt {
-  color: $secondary;
+  color: $light;
   font-weight: bold;
 }
 
@@ -106,6 +132,17 @@ article ul {
       background-repeat: no-repeat;
       background-size: contain;
       background-position: center;
+    }
+  }
+}
+
+nav {
+  a {
+    color: $pink;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: darken($pink, 15%);
     }
   }
 }

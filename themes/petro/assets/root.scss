@@ -32,6 +32,7 @@ $dark:          darken($secondary, 25%) !default;
 $code-color:    $dark !default;  // Code text color
 $pre-color:     $dark !default;   // Pre text color
 $link-color:    darken($primary, 10%) !default;  // Link color
+$text-muted:    darken($light, 15%) !default;  // Muted text color
 
 .title {
   img {

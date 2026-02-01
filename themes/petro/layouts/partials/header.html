@@ -19,20 +19,17 @@
 <body>
   <!-- Page Content -->
   <div class="container mt-5">
-    <div class="row mb-4">
-      <div class="col-lg-8">
-        <h1 class="title"><img src="/braces.svg" type="image/svg+xml"/> {{ .Site.Title }} <small>Senior Software Engineer</small></h1>
-        <hr/>
-        <nav>
-          <ul class="nav">
-            {{ range .Site.Pages.ByWeight}}
-              {{ if .Params.show_in_menu }}
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ .Permalink }}">{{ .Title }}</a>
-                </li>
-              {{ end }}
+    <header class="mb-5">
+      <h1 class="title"><img src="/braces.svg" type="image/svg+xml"/> {{ .Site.Title }} <small>Senior Software Engineer</small></h1>
+      <nav class="mt-5">
+        <ul class="nav justify-content-center">
+          {{ range .Site.Pages.ByWeight}}
+            {{ if .Params.show_in_menu }}
+              <li class="nav-item">
+                <a class="nav-link" href="{{ .Permalink }}">{{ .Title }}</a>
+              </li>
             {{ end }}
-          </ul>
-        </nav>
-      </div>
-    </div>
+          {{ end }}
+        </ul>
+      </nav>
+    </header>

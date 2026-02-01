@@ -5,6 +5,20 @@
   src: url("fonts/Dosis-Regular.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: 'Dosis';
+  font-style: normal;
+  font-weight: 800;
+  src: url("fonts/Dosis-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Dosis';
+  font-style: normal;
+  font-weight: 1000;
+  src: url("fonts/Dosis-ExtraBold.ttf") format("truetype");
+}
+
 .red {
   color: #BF0F30;
 }
@@ -54,7 +68,7 @@ $breadcrumb-active-color: $gray-400 !default;
 $breadcrumb-bg: $alt-background-color;
 $card-bg: $alt-background-color !default;
 $link-color:    $green !default;
-$text-muted: $gray-700 !default;
+$text-muted: $gray-600 !default;
 $hr-border-color: $gray-700 !default;
 
 $line-height-base:            1.7 !default;
@@ -98,12 +112,12 @@ $font-size-base:              1.1rem !default;
 }
 
 dt {
-  color: $light;
+  color: $gray-500;
   font-weight: bold;
 }
 
 strong {
-  color: $secondary;
+  color: $yellow;
 }
 
 svg {
@@ -135,9 +149,16 @@ article ul {
     }
   }
 }
+.card-title {
+  color: $green;
+}
 
 nav {
+  display: block;
+  font-size: 1.2rem;
+
   a {
+    font-weight: 800;
     color: $pink;
     transition: color 0.2s ease;
 

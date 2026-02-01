@@ -15,4 +15,4 @@ I have a blog on {{< icons/medium-brands-solid-full >}} Medium where I occasiona
 * [Creating a Google Data Studio connector](https://medium.com/analytics-vidhya/creating-a-google-data-studio-connector-da7b35c6f8d5)
 * [Angular: Observables, async/await, and Promises, oh my!](https://medium.com/p/c6220c074878)
 * [Introduction to AWS Step Functions using Serverless Framework](https://medium.com/p/4d553f81cc9b)
-* [See all my articles on Medium](https://medium.com/@podrezo)
+* *... or [see all my articles](https://medium.com/@podrezo) on Medium*

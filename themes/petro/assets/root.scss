@@ -33,12 +33,6 @@ $code-color:    $dark !default;  // Code text color
 $pre-color:     $dark !default;   // Pre text color
 $link-color:    darken($primary, 10%) !default;  // Link color
 
-// CSS variables for use in browser
-:root {
-  --color-primary: #1A7972;
-  --color-secondary: #C3297E;
-}
-
 .title {
   img {
     height: 1.2em;
@@ -88,4 +82,29 @@ strong {
 svg {
   font-size: 1.5em;
   margin-top: -0.15em;
+}
+
+// Custom bullet point for unordered lists
+article ul {
+  list-style: none;
+  padding-left: 0;
+
+  li {
+    position: relative;
+    padding-left: 1.5em;
+    line-height: 2em;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.4em;
+      width: 1.2em;
+      height: 1.2em;
+      background-image: url("../images/star-bullet-point.svg");
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+    }
+  }
 }

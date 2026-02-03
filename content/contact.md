@@ -12,3 +12,6 @@ show_in_menu: true
 
 {{< icons/square-bluesky-brands-solid-full >}} Bluesky
 : [podrezo.com](https://bsky.app/profile/podrezo.com)
+
+{{< icons/github >}} Github
+: [podrezo](https://github.com/podrezo)

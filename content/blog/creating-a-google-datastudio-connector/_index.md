@@ -26,9 +26,9 @@ clasp create --title "Toronto City Council Attendance"
 
 You will be prompted for what kind of application to create — select “standalone”. The directory will now contain a “appsscript.json” file which is a manifest for apps scripts. It will also contain a “.clasp.json” file which simply has an ID that tells clasp which scripts project the current directory is linked to. If you open your Google scripts page, you should see your script in the list.
 
-![](https://cdn-images-1.medium.com/max/800/1*gYBYrH3w0eqQdPpdFdr6kw.png)
+![Google Apps Script project list showing Toronto City Council Attendance connector](apps-script-projects-list.png)
 
-Let’s modify our manifest file a bit; we’ll need to add some meta data about the data studio aspect of this script. Here’s the  [official docs](https://developers.google.com/datastudio/connector/build#complete_the_project_manifest)  for the data studio manifest but I’ll just leave an example of mine for this project:
+Let's modify our manifest file a bit; we’ll need to add some meta data about the data studio aspect of this script. Here’s the  [official docs](https://developers.google.com/datastudio/connector/build#complete_the_project_manifest)  for the data studio manifest but I’ll just leave an example of mine for this project:
 
 ```json
 {
@@ -102,9 +102,9 @@ If for a real-world scenario you end up having an API that uses authentication, 
 
 ### getConfig(request)
 
-When you set up a data studio data source the first time you can optionally set some sort of configuration options. In our case, let’s say we want to provide the user the option of picking which of the data sets they want to look at:
+When you set up a data studio data source the first time you can optionally set some sort of configuration options. In our case, let's say we want to provide the user the option of picking which of the data sets they want to look at:
 
-![](https://cdn-images-1.medium.com/max/800/1*y0HWu4OuKr0BgnYcXCOIOw.png)
+![Toronto Open Data download options for councillors meeting attendance](toronto-open-data-download-options.png)
 
 Toronto Open Data screenshot for meeting attendance
 
@@ -134,7 +134,7 @@ The configuration can get pretty advanced as you can use a multi-stepped configu
 
 This function returns the full list of columns and the columns’ data types. It is called whenever the connector is configured so that Data Studio knows what is available to it from a data source that uses this connector. Here’s what that looks like when you’re adding a data source using this connector to your report:
 
-![](https://cdn-images-1.medium.com/max/800/1*9hi7X4fyVqKVcRzKpBi0uQ.png)
+![Data Studio connector field configuration interface](data-studio-connector-fields.png)
 
 The “request” parameter will be an object containing a property “configParams” which is a key-value map of the configuration properties. The keys will be the values passed to “setId” in the “getConfig” function, and the value will be the value set by the user. In our case, the request will look something like this:
 
@@ -336,37 +336,37 @@ function _getDataField(entity, fieldId) {
 
 ### Deploying the connector
 
-Open your  [Google Scripts](https://script.google.com/home)  interface and find your project in the list. Go to “Open Project” to open the online IDE. Go to “Publish” and then “Deploy from manifest…”
+Open your  [Google Scripts](https://script.google.com/home)  interface and find your project in the list. Go to "Open Project" to open the online IDE. Go to "Publish" and then "Deploy from manifest…"
 
-![](https://cdn-images-1.medium.com/max/800/1*M3wDIYVrlTjWzBrntrotYQ.png)
+![Apps Script publish menu with deployment options](apps-script-deploy-menu.png)
 
-Click “Install add-on”
+Click "Install add-on"
 
-![](https://cdn-images-1.medium.com/max/800/1*E6w4Tg1OBVC0-WjhWL1mYg.png)
+![Apps Script deployments dialog showing latest version](apps-script-deployments-dialog.png)
 
-Expand the “Latest Version” and click on the link below.
+Expand the "Latest Version" and click on the link below.
 
-![](https://cdn-images-1.medium.com/max/800/1*o9ZIwVsIjEFrtjkTqzW0Fg.png)
+![Apps Script deployment version with install add-on link](apps-script-install-addon-link.png)
 
 You will see the following interface that will ask you to authorize the code to execute in the context of data studio.
 
-![](https://cdn-images-1.medium.com/max/800/1*mcUOhWkS-V2Hl2Cipc9-lw.png)
+![Data Studio authorization screen for connector](data-studio-authorization-screen.png)
 
 Unless your code is not talking to external systems (e.g. Web APIs) you should see an additional popup appear that asks you to confirm that you’re allowing this code additional permissions. If you authorize it and then end up needing more permissions later, you may not see any errors and will spend a lot of time trying to figure out what’s wrong. See the “Apps scripts use Google OAuth permissions” section below for more details.
 
-![](https://cdn-images-1.medium.com/max/800/1*9hi7X4fyVqKVcRzKpBi0uQ.png)
+![Data Studio connector field configuration interface](data-studio-connector-fields.png)
 
 Finally you’ll see all the possible fields you can get using this data source. You can now add the data source and begin using it.
 
 After adding the data source to a report, we can generate a simple pivot table:
 
-![](https://cdn-images-1.medium.com/max/800/1*TalBbbSH1RBChvh6LmcvqA.png)
+![Data Studio pivot table showing councillor attendance statistics](attendance-report-pivot-table.png)
 
 Stats shown for 2014–2018 period
 
 Or go crazy and add a bunch of charts!
 
-![](https://cdn-images-1.medium.com/max/800/1*3WUGUP1Ky67WsZZwpO9T7g.png)
+![Data Studio charts displaying attendance statistics for 2014-2018](attendance-report-charts.png)
 
 Stats shown for 2014–2018 period
 
@@ -378,17 +378,17 @@ Here’s a few more tips that you may find useful.
 
 #### Logging & Exceptions
 
-To see your log outputs and stack traces you can visit the Google Scripts interface, click your script, and go to “My Executions” on the sidebar.
+To see your log outputs and stack traces you can visit the Google Scripts interface, click your script, and go to "My Executions" on the sidebar.
 
-![](https://cdn-images-1.medium.com/max/800/1*lMfZOzXqA5caLoopSubtrw.png)
+![Google Apps Script executions log showing errors](apps-script-executions-log.png)
 
 #### Apps scripts use Google OAuth permissions
 
 This was painful to debug because there was no error messages for it, but you should be aware that apps scripts are limited in scope in what they can access. If you need to access an external service (like hitting a web API) the script will need to have that permission granted to it when it is added to Data Studio. There is no place to define which scopes you need — Google will automatically pick up what permissions the script needs at the time you add it to Data Studio. Unfortunately, there isn’t really a clear indication of this and there’s no way to refresh the permissions so if you add the connector into Data Studio before you actually use that scope then when you do start accessing APIs your script will just fail with no indication as to what went wrong. If this happens, you need to remove the connector and then add it again.
 
-![](https://cdn-images-1.medium.com/max/800/1*3Vyl_Ie2NBesh-1VvMrx7g.png)
+![Google OAuth permissions dialog for external service access](google-oauth-permissions-dialog.png)
 
-Notice the “Connect to an external service” permission since we are using “UrlFetchApp”
+Notice the "Connect to an external service" permission since we are using "UrlFetchApp"
 
 #### Sharing your connector with others
 

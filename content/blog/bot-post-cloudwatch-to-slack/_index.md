@@ -13,7 +13,7 @@ We recently launched a new project at work that uses AWS’s “serverless” la
 
 I’m not going to walk you through the steps here because you just need a basic lambda function set up. If you want to follow along with my code in this article you’ll need to select Ruby as your runtime but you should be able to do the same thing any of the other runtimes. Since the data flow for this use-case is unidirectional, that is: we want events in CloudWatch to post a Slack message, we don’t need to configure an API gateway to hit the lambda at this time as would be typical for many other lambda use-cases.
 
-![](https://cdn-images-1.medium.com/max/800/1*NnWMX6VuVppsUnOYxPaH6w.png)
+![AWS Lambda function configuration showing SlackBot with Ruby 2.5 runtime](aws-lambda-function-setup.png)
 
 Function set up for AWS lambda
 
@@ -21,7 +21,7 @@ Function set up for AWS lambda
 
 Go to the  [Slack API website](https://api.slack.com/apps)  and click “create new app.” You will need the proper permissions to actually add the app into your slack group so if you’re just trying things out you may not want to add it to your real one and instead create a new one as a sandbox. Once you’ve created your bot, you can configure the various parameters on this website like its name and icon; I’m going to call mine “SmartBot”. Once done, head over to the “Incoming Webhooks” section and activate it. For the purposes of this example, we’re going to send to a single channel so go ahead and add a hook for it and take note of the resulting URL.
 
-![](https://cdn-images-1.medium.com/max/800/1*6MRJiAONwJbU1khrRikYXQ.png)
+![Slack webhook URL configuration screen](slack-webhook-configuration.png)
 
 Slack webhook screen
 
@@ -54,7 +54,7 @@ end
 
 You should see something similar to the following in your slack channel:
 
-![](https://cdn-images-1.medium.com/max/800/1*iZSxhZXyewprBwOILCU-GA.png)
+![SmartBot posting hello message to Slack channel](smartbot-hello-message.png)
 
 SmartBot says hello
 
@@ -62,9 +62,9 @@ SmartBot says hello
 
 Now that we can speak, let’s make the bot speak in response to actual events we care about such when CloudWatch logs something in a specific log group. Add a trigger for “CloudWatch Logs” to your lambda and point it to the log group you’re interested such as the output of another lambda. For fun, you can just make a new lambda that does nothing but write a single line of output to the console.
 
-This should be obvious but  **do NOT point it at the log group for the bot’s own lambda** as this will create a feedback loop where any event trigger will cause a runaway cyclical scenario and you’ll probably burn through a very chunky portion of your AWS bill and probably be banned from Slack’s API.
+This should be obvious but  **do NOT point it at the log group for the bot's own lambda** as this will create a feedback loop where any event trigger will cause a runaway cyclical scenario and you'll probably burn through a very chunky portion of your AWS bill and probably be banned from Slack's API.
 
-![](https://cdn-images-1.medium.com/max/800/1*DH4fld9tL-QElxBuWiTRNw.png)
+![AWS Lambda trigger configuration for CloudWatch Logs](cloudwatch-logs-trigger-configuration.png)
 
 At this point events from that log group should start triggering your lambda. The  [shape of the event is documented here](https://docs.aws.amazon.com/lambda/latest/dg/services-cloudwatchlogs.html). Go ahead and add a new test event (or modify the existing one) with this example:
 
@@ -134,7 +134,7 @@ end
 
 So what do we get when we run the test event?
 
-![](https://cdn-images-1.medium.com/max/800/1*1vfepYlcav929JYUKht78g.png)
+![SmartBot successfully posting decoded CloudWatch log message](smartbot-decoded-cloudwatch-message.png)
 
 SmartBot has successfully decoded CloudWatch logs!
 

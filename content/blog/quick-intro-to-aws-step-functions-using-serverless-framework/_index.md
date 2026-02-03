@@ -9,9 +9,9 @@ first_published: 2021-03-15
 
 **2024 Update:**  There’s been some updates on the serverless framework since 2021 when I published this originally. While following the steps of my own article in 2024 I noticed a few quirks that one should account for — see the bottom of this article for details.
 
-While I am already fairly familiar with AWS Lambda, the platform for doing serverless computation at Amazon, I was not familiar with the “Step Function” aspect until I was introduced to it at work. To oversimplify a bit: step functions are a way to run multiple lambda functions* sequentially, like a state machine.
+While I am already fairly familiar with AWS Lambda, the platform for doing serverless computation at Amazon, I was not familiar with the "Step Function" aspect until I was introduced to it at work. To oversimplify a bit: step functions are a way to run multiple lambda functions* sequentially, like a state machine.
 
-![](https://cdn-images-1.medium.com/max/800/1*HnPgHJmC8WlhPOZTVOcmUQ.jpeg)
+![Architectural photo of stepped structures](steps-architecture-photo.jpeg)
 
 Photo by  [Ankush Rathi](https://www.pexels.com/@ankush-rathi-154135?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels)  from [Pexels](https://www.pexels.com/photo/brown-concrete-door-925067/?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels)
 
@@ -24,9 +24,9 @@ Some gains of doing it this way rather than doing one bigger lambda function to 
 -   *Steps do not have to just be lambda functions — you can introduce steps like writing to DynamoDB, making a choice based on the payload (without needing a Lambda to do it), or even hitting a web API (_NOTE: the endpoint must be behind an AWS API gateway! Read more_ [_here_](https://docs.aws.amazon.com/step-functions/latest/dg/connect-api-gateway.html)_._). This is done using Amazon’s proprietary “ASL” ([Amazon States Language](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html)). Again, the advantage here is that it reduces complexity for you as you do not need to handle the logic in your lambda code.
 -   You can execute each lambda in your state machine separately which makes debugging complex sequences a breeze as you can narrow down on a specific step that will likely only deal with one specific service. Consider if you had a lambda that talks to three different services, let’s call them A, B, and C sequentially to get its work done. In order to exercise talking to service B you’d need to give the lambda some input that would first go to A before it actually exercises the part you want (B) only to then again pass the data in to C before giving you a result which would require you to write additional debugging code so you can see what’s happening in the middle. With a state machine step function you can simply call “B” using the input you want and immediately see what it returns.
 -   You get a useful GUI using the web console to see what step your state machine is on or to review inputs and outputs of previous states (see screenshot below)
--   While I haven’t explicitly tried this, from what I can tell you should be able to easily mix different lambda runtimes in your state machine. That is, it may make sense to use Go for one function but Ruby for another for example. In a single lambda this would be tricky to accomplish, but since each lambda function in the state machine is its own discrete unit you have the freedom to choose this approach if it make sense for your use case.
+-   While I haven't explicitly tried this, from what I can tell you should be able to easily mix different lambda runtimes in your state machine. That is, it may make sense to use Go for one function but Ruby for another for example. In a single lambda this would be tricky to accomplish, but since each lambda function in the state machine is its own discrete unit you have the freedom to choose this approach if it make sense for your use case.
 
-![](https://cdn-images-1.medium.com/max/800/1*IVSphfLuKaZBiFrfr9ZgkQ.png)
+![AWS Step Functions graph inspector showing state machine execution](step-functions-graph-inspector.png)
 
 GUI for viewing runs of a state machine
 
@@ -36,7 +36,7 @@ Some of the drawbacks are:
 -   Learning the proprietary “Amazon States Language” has a learning curve associated with it, though it is not too complicated.
 -   There are additional AWS costs incurred for using the state machine. As of the time of writing this, it is  [$0.025 USD per 1000 state transitions](https://aws.amazon.com/step-functions/pricing/). It’s not a lot, but it  _is_  an additional cost. Plus, given that spinning up a new lambda run is going to be slower than just calling a function inside your lambda “normally” you’re spending a bit more time and thus more money on running your lambdas. Again, Lambda costs are pretty low so the difference will probably be negligible for most use cases but if you’re building something large it may be a factor to consider.
 
-![](https://cdn-images-1.medium.com/max/800/1*sKzFRukFNOkwnid2SHH_uQ.png)
+![Step Function execution response showing ARN](step-function-execution-response.png)
 
 What you get back if you trigger a state machine using an API gateway.
 
@@ -189,7 +189,7 @@ And one final lambda to upload everything to an S3 bucket for publishing. Note t
 
 Once we deploy this, AWS will show us the following handy diagram for our state machine:
 
-![](https://cdn-images-1.medium.com/max/800/1*Adu9Z9R_T56SA3xu_9KOhw.png)
+![AWS Step Functions state machine diagram](state-machine-diagram.png)
 
 Our state machine in diagram form
 
@@ -229,7 +229,7 @@ I’m not going to dive into the code for the specific lambdas as it will be exa
 
 Here’s how it looks in the GUI while executing — neat! 🎉
 
-![](https://cdn-images-1.medium.com/max/800/1*AzVwOaCiF0J5t_lfnUjkNw.gif)
+![Animated visualization of state machine execution in progress](state-machine-execution-animation.gif)
 
 Animated GIF showing the state machine running
 

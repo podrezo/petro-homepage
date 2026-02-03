@@ -13,10 +13,10 @@
 }
 
 @font-face {
-  font-family: 'Dosis';
+  font-family: 'Fira Code';
   font-style: normal;
-  font-weight: 1000;
-  src: url("fonts/Dosis-ExtraBold.ttf") format("truetype");
+  font-weight: 400;
+  src: url("fonts/FiraCode-Regular.ttf") format("truetype");
 }
 
 .red {
@@ -29,8 +29,7 @@
 
 
 $font-family-sans-serif: 'Dosis', -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !default;
-// $font-family-serif:      Georgia, "Times New Roman", Times, serif !default;
-// $font-family-monospace:  Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
+$font-family-monospace:  'Fira Code', SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
 $font-family-base:       $font-family-sans-serif !default;
 
 // Monokai theme https://gist.github.com/r-malon/8fc669332215c8028697a0bbfbfbb32a?permalink_comment_id=5697686#gistcomment-5697686

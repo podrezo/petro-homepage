@@ -44,7 +44,9 @@ What you get back if you trigger a state machine using an API gateway.
 
 Ideally for anything other than a simple experiment you’d be using  **Infrastructure as Code**  (IaC) to set up your application. The fact that either way, whether you do it through the web console or through IaC you’d still have to write out the ASL “code” to describe your state machine’s steps makes the case for using IaC even a bigger advantage as you’re already writing something anyway. My personal preferred IaC option for something like this would be the Serverless Framework which has an article exactly on how to set up  [step functions](https://www.serverless.com/plugins/serverless-step-functions). To get going, simply add the plugins required via
 
-    npm install --save-dev serverless-step-functions serverless-pseudo-parameters
+```bash
+npm install --save-dev serverless-step-functions serverless-pseudo-parameters
+```
 
 Then in your  `serverless.yml`  file add
 
@@ -58,89 +60,46 @@ For the purposes of this article, we’ll create a state machine that runs a rep
 
 All the lambdas you will be using for the various states should be defined as usual in the “functions” section:
 
-    functions:
-      CreateReport:
-        handler: create_report_run.handler
-      PollReport:
-        handler: poll_report.handler
-      DownloadReport:
-        handler: download_report.handler
-      UpdateSite:
-        handler: update_site.handler
+```yaml
+functions:
+  CreateReport:
+    handler: create_report_run.handler
+  PollReport:
+    handler: poll_report.handler
+  DownloadReport:
+    handler: download_report.handler
+  UpdateSite:
+    handler: update_site.handler
+```
 
 In this case, we’re storing the handlers in separate files called “create_report_run.rb” etc. with a method called “handler”. Since we’re always going to run the same inputs in this case, we don’t need to be concerned about what we’re passing in to the first step.
 
 Now let’s define the actual steps. Let me show you the entire steps section first, then we’ll dissect it:
 
-    stepFunctions:
-      stateMachines:
-        RunReport:
-          events:
-            - schedule: cron(0/1 * ? * * *)
-          name: ReportRunner
-          definition:
-            StartAt: CreateReportState
-            States:
-              CreateReportState:
-                Type: Task
-                Resource:
-                  Fn::GetAtt: [CreateReport, Arn]
-                Next: WaitBeforeCheckState
-              WaitBeforeCheckState:
-                Type: Wait
-                Seconds: 10
-                Next: PollReportState
-              PollReportState:
-                Type: Task
-                Resource:
-                  Fn::GetAtt: [PollReport, Arn]
-                Next: CheckIfDoneState
-              CheckIfDoneState:
-                Type: Choice
-                Choices:
-                  - Variable: "$.download_url"
-                    IsNull: false
-                    Next: DownloadReportState
-                Default: WaitBeforeCheckState
-              DownloadReportState:
-                Type: Task
-                Resource:
-                  Fn::GetAtt: [DownloadReport, Arn]
-                Next: UpdateSiteState
-              UpdateSiteState:
-                Type: Task
-                Resource:
-                  Fn::GetAtt: [UpdateSite, Arn]
-                End: true
-      validate: true
-
-So firstly we have the “stepFunctions” and “stateMachines” declarations. Key thing to note here is that it is plural — you can have multiple state machines in one serverless project. The next line declares one such state machine: the state machine called “RunReport”. It is triggered by the “events” listed — namely, it is run on a one minute timer based on the cron syntax. We give the state machine a name of “ReportRunner”. At the end we say “validate: true” simply for the serverless step function plugin to validate that our steps line up correctly as it does not do this by default.
-
-So what about the steps themselves? Well, we start off by declaring “StartAt” which tells us which step is the first step in the flow. In this case, our first step is the “CreateReportState” which is defined as following:
-
+```yaml
+stepFunctions:
+  stateMachines:
+    RunReport:
+      events:
+        - schedule: cron(0/1 * ? * * *)
+      name: ReportRunner
+      definition:
+        StartAt: CreateReportState
+        States:
           CreateReportState:
             Type: Task
             Resource:
               Fn::GetAtt: [CreateReport, Arn]
             Next: WaitBeforeCheckState
-
-We reference which Lambda we want using “Resource” and we tell the state machine that the next state is always going to be “WaitBeforeCheckState” where we want to wait a few seconds before checking the status of the report (it won’t finish immediately).
-
           WaitBeforeCheckState:
             Type: Wait
             Seconds: 10
             Next: PollReportState
-
-Pretty straightforward — we’re using the “wait” step type to wait 10 seconds before proceeding to the “PollReportState”. Note that our payload from the previous tasks’s output will be the output of this step as well — it just gets passed through.
-
           PollReportState:
             Type: Task
             Resource:
               Fn::GetAtt: [PollReport, Arn]
             Next: CheckIfDoneState
-
-Here’s where we’re going to call another lambda that goes out to a web API to check the status if the report has finished running or not. After it runs, it will return the status.
-
           CheckIfDoneState:
             Type: Choice
             Choices:
@@ -148,24 +107,83 @@ Here’s where we’re going to call another lambda that goes out to a web API t
                 IsNull: false
                 Next: DownloadReportState
             Default: WaitBeforeCheckState
-
-This is what really makes the state machine interesting — we want to do one thing if the report is done and another if not. In particular, we want to rely on a payload containing a “download_url” value; if it is not null then we want to proceed to the “DownloadReportState” but if it is null that means the report is not finished running yet so we want to wait and then check again. Since we already have an existing wait step, we can rely on that step again and simply loop back to it by making that the “Default”.
-
-One thing to watch out for is that if the variable you are checking is undefined, the state machine will go into a “cancelled” state.  **The value can be null, but it cannot be undefined.**
-
           DownloadReportState:
             Type: Task
             Resource:
               Fn::GetAtt: [DownloadReport, Arn]
             Next: UpdateSiteState
-
-Another lambda to download the report from the “download_url”
-
           UpdateSiteState:
             Type: Task
             Resource:
               Fn::GetAtt: [UpdateSite, Arn]
             End: true
+  validate: true
+```
+
+So firstly we have the “stepFunctions” and “stateMachines” declarations. Key thing to note here is that it is plural — you can have multiple state machines in one serverless project. The next line declares one such state machine: the state machine called “RunReport”. It is triggered by the “events” listed — namely, it is run on a one minute timer based on the cron syntax. We give the state machine a name of “ReportRunner”. At the end we say “validate: true” simply for the serverless step function plugin to validate that our steps line up correctly as it does not do this by default.
+
+So what about the steps themselves? Well, we start off by declaring “StartAt” which tells us which step is the first step in the flow. In this case, our first step is the “CreateReportState” which is defined as following:
+
+```yaml
+      CreateReportState:
+        Type: Task
+        Resource:
+          Fn::GetAtt: [CreateReport, Arn]
+        Next: WaitBeforeCheckState
+```
+
+We reference which Lambda we want using “Resource” and we tell the state machine that the next state is always going to be “WaitBeforeCheckState” where we want to wait a few seconds before checking the status of the report (it won’t finish immediately).
+
+```yaml
+      WaitBeforeCheckState:
+        Type: Wait
+        Seconds: 10
+        Next: PollReportState
+```
+
+Pretty straightforward — we’re using the “wait” step type to wait 10 seconds before proceeding to the “PollReportState”. Note that our payload from the previous tasks’s output will be the output of this step as well — it just gets passed through.
+
+```yaml
+      PollReportState:
+        Type: Task
+        Resource:
+          Fn::GetAtt: [PollReport, Arn]
+        Next: CheckIfDoneState
+```
+
+Here’s where we’re going to call another lambda that goes out to a web API to check the status if the report has finished running or not. After it runs, it will return the status.
+
+```yaml
+      CheckIfDoneState:
+        Type: Choice
+        Choices:
+          - Variable: "$.download_url"
+            IsNull: false
+            Next: DownloadReportState
+        Default: WaitBeforeCheckState
+```
+
+This is what really makes the state machine interesting — we want to do one thing if the report is done and another if not. In particular, we want to rely on a payload containing a “download_url” value; if it is not null then we want to proceed to the “DownloadReportState” but if it is null that means the report is not finished running yet so we want to wait and then check again. Since we already have an existing wait step, we can rely on that step again and simply loop back to it by making that the “Default”.
+
+One thing to watch out for is that if the variable you are checking is undefined, the state machine will go into a “cancelled” state.  **The value can be null, but it cannot be undefined.**
+
+```yaml
+      DownloadReportState:
+        Type: Task
+        Resource:
+          Fn::GetAtt: [DownloadReport, Arn]
+        Next: UpdateSiteState
+```
+
+Another lambda to download the report from the “download_url”
+
+```yaml
+      UpdateSiteState:
+        Type: Task
+        Resource:
+          Fn::GetAtt: [UpdateSite, Arn]
+        End: true
+```
 
 And one final lambda to upload everything to an S3 bucket for publishing. Note the “End: true” part since we have no next step after this one. It is a terminal node in our state machine.
 
@@ -177,27 +195,33 @@ Our state machine in diagram form
 
 In terms of the code in the handler functions, it’s dead simple — our lambda function signature looks like this:
 
-    def handler(event:, context:)
-      # Do something with "event"
-      # "event" can be a string, an object, whatever you need
-      result = event["my_previous_value"].upcase
-      # Whatever we return will be the "event" of the next task
-      {
-        my_next_value: result
-      }
-    end
+```ruby
+def handler(event:, context:)
+  # Do something with "event"
+  # "event" can be a string, an object, whatever you need
+  result = event["my_previous_value"].upcase
+  # Whatever we return will be the "event" of the next task
+  {
+    my_next_value: result
+  }
+end
+```
 
 So in this case the handler receives an object that it expects to look like this:
 
-    {
-      "my_previous_value": "something"
-    }
+```json
+{
+  "my_previous_value": "something"
+}
+```
 
 It will turn the string to uppercase and return it as another object that’s going to look like this:
 
-    {
-      "my_next_value": "SOMETHING"
-    }
+```json
+{
+  "my_next_value": "SOMETHING"
+}
+```
 
 And if there’s another step in the Lambda after it, that will be its input.
 
@@ -226,21 +250,23 @@ You’ll probably want to use the HTTP API gateway (v2) from AWS instead of the 
 
 You will need to include a IAM role statement to allow the execution of your state machine from your initial lambda; you can do so like this:
 
-    provider:
-      # ....
-      iam:
-        role:
-          statements:
-            - Effect: Allow
-              Action: 'states:StartExecution'
-              Resource:
-                Fn::Join:
-                  - ''
-                  - - 'arn:aws:states:'
-                    - Ref: AWS::Region
-                    - ':'
-                    - Ref: AWS::AccountId
-                    - ':stateMachine:StateMachineNameHere'
+```yaml
+provider:
+  # ....
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action: 'states:StartExecution'
+          Resource:
+            Fn::Join:
+              - ''
+              - - 'arn:aws:states:'
+                - Ref: AWS::Region
+                - ':'
+                - Ref: AWS::AccountId
+                - ':stateMachine:StateMachineNameHere'
+```
 
 #### Example Project
 

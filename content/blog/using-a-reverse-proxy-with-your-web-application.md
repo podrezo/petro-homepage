@@ -45,13 +45,15 @@ Before continuing, make sure the proxy module is enabled using “sudo a2enmod p
 
 You will have to create the proper vhost for your site. In our example, let’s suppose we’re trying to set up some sort of pastebin site as  **pastebin.mydomain.com**  where  **mydomain.com**  is configured to point to some server running Apache on port 80. Our pastebin application is listening on port 8000 and we  [have it running via forever](http://blog.podrezo.com/init-d-startupshutdown-script-for-node-js-applications-via-forever/ "Init.d startup/shutdown script for Node.JS applications via forever")  in a continuous loop. Open up your apache2 configuration (for me it is located in  **/etc/apache2/sites-available**  with a separate file per vhost/site) and create the vhost as follows:
 
-    <VirtualHost *:80>
-    ServerName pastebin.mydomain.com
-    ServerAlias www.pastebin.mydomain.com
-    DocumentRoot /var/www/pastebinjs/
-    Options -Indexes
-    ErrorDocument 503 /maintenance.html
-    </VirtualHost>
+```apacheconf
+<VirtualHost *:80>
+ServerName pastebin.mydomain.com
+ServerAlias www.pastebin.mydomain.com
+DocumentRoot /var/www/pastebinjs/
+Options -Indexes
+ErrorDocument 503 /maintenance.html
+</VirtualHost>
+```
 
 So what does this get us? Let’s go through it line by line:
 
@@ -64,17 +66,19 @@ So what does this get us? Let’s go through it line by line:
 
 The final result is that we have a static website rooted at /var/www/pastebinjs with a custom error message. In this folder we would create maintenance.html and put some message like “we are under maintenance and looking into it! We’ll be back shortly!” so as not to scare the users. But now what? What about the node app? Alright, so the next part is almost as simple. We expand our vhost to the following:
 
-    <VirtualHost *:80>
-    ServerName pastebin.mydomain.com
-    ServerAlias www.pastebin.mydomain.com
-    DocumentRoot /var/www/pastebinjs/
-    Options -Indexes
-    ErrorDocument 503 /maintenance.html
+```apacheconf
+<VirtualHost *:80>
+ServerName pastebin.mydomain.com
+ServerAlias www.pastebin.mydomain.com
+DocumentRoot /var/www/pastebinjs/
+Options -Indexes
+ErrorDocument 503 /maintenance.html
 
-    ProxyRequests on
-    ProxyPass /maintenance.html !
-    ProxyPass / http://localhost:8000/
-    </VirtualHost>
+ProxyRequests on
+ProxyPass /maintenance.html !
+ProxyPass / http://localhost:8000/
+</VirtualHost>
+```
 
 What do we have now then? Well, we enabled the proxy module in Apache and we told it that maintenance.html will not be proxied through but will instead be served by the Apache server as a ‘normal’ page (the ! means it won’t be sent through; for more info on the proxypass directive  [see the Apache official documentation](http://httpd.apache.org/docs/2.2/mod/mod_proxy.html#proxypass "Apache2 ProxyPass Directive")). This directive is necessary because in the next line we pass  _all_  requests through to localhost:8000 running our web app which means if it crashed, the 503 “service unavailable” custom error page would not be reachable as it will be passing the request for /maintenance.html to the web server which is down.
 
@@ -84,7 +88,9 @@ Couple things security related here, in case they are not obvious. Firstly, if y
 
 Moreover, for your web application’s logging purposes, please understand that you will not be able to make use of any kind of ‘remote IP’ detection by literally looking at the remote IP. Your web app will receive all its requests from the reverse proxy, therefore the remote IP will  _always_  be the reverse proxy’s IP (e.g. 127.0.0.1 in our example) and not the actual client. To get around this, proxy servers by default append a header to their request called “[X-Forwarded-For](http://en.wikipedia.org/wiki/X-Forwarded-For "Wikipedia: X-Forwarded-For Header")” which is a comma separated list of IP’s for which the request was proxied. According to wikipedia it takes the form:
 
-    X-Forwarded-For: client, proxy1, proxy2
+```
+X-Forwarded-For: client, proxy1, proxy2
+```
 
 However, in practice it may be the reverse order (at least for me it was, so do some experimenting to see how your web server handles it). Your web application can read the header and get the client’s IP from there.
 
@@ -92,7 +98,9 @@ However, in practice it may be the reverse order (at least for me it was, so do 
 
 For anything more than basic applications you will want to serve your front-end assets via the web server directly. This is advantageous because you don’t bog down the web application by making it do menial tasks like serving the static content and you also reduce latency for getting those resources. To do this, simply change your ProxyPass directive from the vhost configuration to read something like:
 
-    ProxyPass /api http://localhost:8000/
+```nginx
+ProxyPass /api http://localhost:8000/
+```
 
 Now all requests sent to /api will be instead re-routed to the web app, but all other requests will go through to the usual document root. Note that Apache will automatically reformat the URL; that is if the user requests /api/a/b/c then the web app will only receive the request for /a/b/c without the /api part as that is not mentioned in the ProxyPass directive for the 2nd parameter. Very useful!
 
@@ -104,18 +112,20 @@ Web apps and Apache work together quite well and you can accomplish a lot by har
 
 For those of you who prefer using NGINX, here’s a comparable configuration to what I had for Apache above.
 
-    server {
-      listen 80;
-      server_tokens off;
-      server_name pastebin.mydomain.com;
-      error_page 502 /500.html;
-      location /500.html {
-        root /home/apps/default;
-        allow all;
-        internal;
-      }
-      location / {
-        proxy_pass http://localhost:8000;
-        proxy_set_header  X-Forwarded-for $remote_addr;
-      }
-    }
+```nginx
+server {
+  listen 80;
+  server_tokens off;
+  server_name pastebin.mydomain.com;
+  error_page 502 /500.html;
+  location /500.html {
+    root /home/apps/default;
+    allow all;
+    internal;
+  }
+  location / {
+    proxy_pass http://localhost:8000;
+    proxy_set_header  X-Forwarded-for $remote_addr;
+  }
+}
+```

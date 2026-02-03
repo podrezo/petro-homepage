@@ -31,24 +31,26 @@ The first main piece of this puzzle is getting our bot to speak, which is as sim
 
 To do this, take that URL for the slack hook from earlier and store it in an environment variable named “SLACK_HOOK_URL”. Paste the following code into your function, save it , and hit “test” — the body of the test event doesn’t matter for now so you can leave the example provided.
 
-    require 'json'
-    require 'net/https'
-    require 'uri'
+```ruby
+require 'json'
+require 'net/https'
+require 'uri'
 
-    def lambda_handler(event:, context:)
-        response = speak("hello, slack!")
-        puts response.body
-    end
+def lambda_handler(event:, context:)
+    response = speak("hello, slack!")
+    puts response.body
+end
 
-    def speak(message)
-        http = Net::HTTP.new("hooks.slack.com", 443)
-        http.use_ssl = true
-        request = Net::HTTP::Post.new(ENV["SLACK_HOOK_URL"])
-        request.body = JSON.generate({
-            text: message
-        })
-        http.request(request)
-    end
+def speak(message)
+    http = Net::HTTP.new("hooks.slack.com", 443)
+    http.use_ssl = true
+    request = Net::HTTP::Post.new(ENV["SLACK_HOOK_URL"])
+    request.body = JSON.generate({
+        text: message
+    })
+    http.request(request)
+end
+```
 
 You should see something similar to the following in your slack channel:
 
@@ -66,63 +68,69 @@ This should be obvious but  **do NOT point it at the log group for the bot’s o
 
 At this point events from that log group should start triggering your lambda. The  [shape of the event is documented here](https://docs.aws.amazon.com/lambda/latest/dg/services-cloudwatchlogs.html). Go ahead and add a new test event (or modify the existing one) with this example:
 
-    {
-      "awslogs": {
-        "data": "H4sIAAAAAAAAA2WQwY7CIBCGz/QpCPG4CS2rUffWxOplPcFNmw3qrJIUaIBqjfHdt5B6MDvH/5v5ZuCRIaLBe3kGcW+BfGGyKkX5s604LzcV+Ri4vRlwkfSvSnFjzxtnuzYSKm+eNlIfTpIK8GHdmWNQ1rwaeXAgdexkOctpzmgxo7vJdykqLuq+fzf77uCPTrXRsFZNAOeH0R3Z3pM7JaQe1dUVTEj8kSFE1Ont0n8VFyAS1PDoIHU8vpgtijlbTD+XU8YSHT8kirjVgL11AdtfPOb4Ag72hmToWWfPP09hdZtCAQAA"
-      }
-    }
+```json
+{
+  "awslogs": {
+    "data": "H4sIAAAAAAAAA2WQwY7CIBCGz/QpCPG4CS2rUffWxOplPcFNmw3qrJIUaIBqjfHdt5B6MDvH/5v5ZuCRIaLBe3kGcW+BfGGyKkX5s604LzcV+Ri4vRlwkfSvSnFjzxtnuzYSKm+eNlIfTpIK8GHdmWNQ1rwaeXAgdexkOctpzmgxo7vJdykqLuq+fzf77uCPTrXRsFZNAOeH0R3Z3pM7JaQe1dUVTEj8kSFE1Ont0n8VFyAS1PDoIHU8vpgtijlbTD+XU8YSHT8kirjVgL11AdtfPOb4Ag72hmToWWfPP09hdZtCAQAA"
+  }
+}
+```
 
 As the documentation says, the “data” is a gzipped, base64 encoded JSON object that contains metadata and log messages. When you decode and decompress it, it has the following shape:
 
-    {
-     "messageType": "DATA_MESSAGE",
-     "owner": "xxxxxxxxx",
-     "logGroup": "/aws/lambda/TestFunction",
-     "logStream": "2020/02/15/[$LATEST]xxxxxxxxxxx",
-     "subscriptionFilters": ["MyTestFilter"],
-     "logEvents": [{
-      "id": "xxxxxxxxxxxxxxxxxxxxxxxxxx",
-      "timestamp": 1581728439422,
-      "message": "Some sort of message here\n"
-     }]
-    }
+```json
+{
+ "messageType": "DATA_MESSAGE",
+ "owner": "xxxxxxxxx",
+ "logGroup": "/aws/lambda/TestFunction",
+ "logStream": "2020/02/15/[$LATEST]xxxxxxxxxxx",
+ "subscriptionFilters": ["MyTestFilter"],
+ "logEvents": [{
+  "id": "xxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "timestamp": 1581728439422,
+  "message": "Some sort of message here\n"
+ }]
+}
+```
 
 So we’ll need a few more “requires” and to build a function to do the decoding and decompression. Moreover, we’ll want to add a function to process that JSON blob and extracts all the messages, ignoring all the other metadata (for our particular use case — you can obviously adjust it to suit your needs). Our code will now look like this:
 
-    require 'json'
-    require 'net/https'
-    require 'uri'
-    require 'base64'
-    require 'zlib'
-    require 'stringio'
+```ruby
+require 'json'
+require 'net/https'
+require 'uri'
+require 'base64'
+require 'zlib'
+require 'stringio'
 
-    def lambda_handler(event:, context:)
-      log_event = JSON.parse(decode_and_decompress(event["awslogs"]["data"]))
-      response = speak(messages_from_blob(log_event))
-      puts response.body
-    end
+def lambda_handler(event:, context:)
+  log_event = JSON.parse(decode_and_decompress(event["awslogs"]["data"]))
+  response = speak(messages_from_blob(log_event))
+  puts response.body
+end
 
-    def speak(message)
-      http = Net::HTTP.new("hooks.slack.com", 443)
-      http.use_ssl = true
-      request = Net::HTTP::Post.new(ENV["SLACK_HOOK_URL"])
-      request.body = JSON.generate({
-        text: message
-      })
-      http.request(request)
-    end
+def speak(message)
+  http = Net::HTTP.new("hooks.slack.com", 443)
+  http.use_ssl = true
+  request = Net::HTTP::Post.new(ENV["SLACK_HOOK_URL"])
+  request.body = JSON.generate({
+    text: message
+  })
+  http.request(request)
+end
 
-    def decode_and_decompress(input)
-      binary_compressed = Base64.decode64(input)
-      gz = Zlib::GzipReader.new(StringIO.new(binary_compressed))
-      gz.read
-    end
+def decode_and_decompress(input)
+  binary_compressed = Base64.decode64(input)
+  gz = Zlib::GzipReader.new(StringIO.new(binary_compressed))
+  gz.read
+end
 
-    def messages_from_blob(event_data)
-      event_data["logEvents"]
-        .map{ |e| e["message"] }
-        .join("\n")
-    end
+def messages_from_blob(event_data)
+  event_data["logEvents"]
+    .map{ |e| e["message"] }
+    .join("\n")
+end
+```
 
 So what do we get when we run the test event?
 

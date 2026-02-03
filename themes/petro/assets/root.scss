@@ -41,6 +41,7 @@ $green: #A6E22E !default;
 $orange: #FD971F !default;
 $purple: #AE81FF !default;
 $pink: #F92672 !default;
+$blue: #66D9EF !default;
 // Not defined: $blue, $indigo, $purple, $pink, $red, $cyan
 
 $gray-100: lighten($black, 90%) !default;
@@ -69,6 +70,7 @@ $card-bg: $alt-background-color !default;
 $link-color:    $green !default;
 $text-muted: $gray-600 !default;
 $hr-border-color: $gray-700 !default;
+$pre-color: $orange !default;
 
 $line-height-base:            1.7 !default;
 $font-size-base:              1.1rem !default;

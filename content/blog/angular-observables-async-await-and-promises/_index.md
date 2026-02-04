@@ -31,7 +31,7 @@ doAsyncObservableThing()
   )
 ```
 
-### Your own first observable
+## Your own first observable
 
 A lot of guides I read dive into making HTTP requests right away with observables since that is pragmatically where you will use them most, but I want to do things a bit differently in this article and get at the meat of what Observables are like without trying to make it practical right away. So how do we simply return a value in an async way using Observable? Well there’s two ways — we can use the constructor of it, or use the create method, both of which do the same thing (they are aliases of each other).
 
@@ -112,9 +112,9 @@ this.doAsyncObservableThing = new Observable(observer => {
 
 What you’ll see is the following:
 
--   0: Started
--   1001: Hello, observable world!
--   2001: Done
+* 0: Started
+* 1001: Hello, observable world!
+* 2001: Done
 
 Note that depending on the situation, you’re probably better off using something like  [delay()](https://www.learnrxjs.io/operators/utility/delay.html)  instead of setTimeout for timing purposes with your observables; I’m just using setTimeout here to show a point.
 
@@ -140,7 +140,7 @@ this.doAsyncObservableThing.forEach(
 
 In the above example I have changed the subscribe() method into a forEach(). The forEach() method returns… a promise! so we can simply do a .then() on the result of forEach() which will be invoked when the observable has fully completed. The rule of thumb is when you expect something to happen once and be done you should probably be using subscribe() and if you’re expecting multiple results you should probably be using forEach().
 
-### Chaining Observables
+## Chaining Observables
 
 One of the most annoying things for me to figure out when I started working with Observable was how to chain them together — specifically I had a scenario where I had two HTTP requests that needed to happen in sequence, with some processing of the results in-between.
 
@@ -164,12 +164,12 @@ this.doAsyncObservableThing.subscribe((val) => {
 
 Note that the above will work, you will see the following:
 
--   1001: Hello, observable world!
--   2001: Hello, observable world!
+* 1001: Hello, observable world!
+* 2001: Hello, observable world!
 
 However the code is just plain ugly and anything even marginally more complicated will quickly grow to be unmaintainable. So what can we do? Well another naive solution is to just use the toPromise() method on the observables and chain them together that way, but again that’s taking the easy way out and not really thinking with Observables. So what to do? Well there’s a couple things you can do, but before we get to that it’s important to understand that  **unlike promises, you don’t keep chaining subscribes() similar to how you would chain then()’s**. Instead, there’s a few solutions depending on what you’re looking for.
 
-### Start all tasks immediately, get the results one by one (merge)
+## Start all tasks immediately, get the results one by one (merge)
 
 First, let’s try importing merge using import ‘rxjs/add/operator/merge’;
 
@@ -185,12 +185,12 @@ this.doAsyncObservableThing('First')
 
 Our result looks like this:
 
--   1002: First
--   1002: Second
+* 1002: First
+* 1002: Second
 
 The key takeaway from this experiment is that the callback in subscribe() is invoked twice, once for ‘First’ and once for ‘Second’ but the intervals are starting from the same time — the timing confirms both complete after one second.
 
-### Observables in sequence, using async/await
+## Observables in sequence, using async/await
 
 Now, this next one is going to use toPromise() because I haven’t found a better way around this yet, but it uses so sparingly and still remains the cleanest way I have found to accomplish what we did with the nested subscribe()’s without actually nesting them and that is to use the async and await keywords. Firstly, we will have to move our code into the NgOnInit method because a constructor cannot be async and that’s where we’ve had our code so far; next let’s talk briefly about the async and await keywords.
 
@@ -203,14 +203,14 @@ this.log(await this.doAsyncObservableThing('Second').toPromise());
 
 Notice that the call to this.log() will be suspended until the expression involving await can be evaluated, which is only after the promise resolves. This means that our result looks like this:
 
--   1005: First
--   2009: Second
+* 1005: First
+* 2009: Second
 
 With the timings we expect, where the second observable doesn’t start until the first one finishes.
 
-### Quirks
+## Quirks
 
-#### route.queryParams doesn’t work with await
+### route.queryParams doesn't work with await
 
 When you read back what query parameters are in your current route, you must do so using an observable: route.queryParams; [here](https://angular.io/guide/router#query-parameters)  are the official docs for that. However, doing an await on the toPromise() of that Observable doesn’t work — your execution will stop at that point and it won’t continue further. It took me longer to figure this out than I would care to admit, but it turns out that queryParams is a case of an infinite Observable — subscribing to it will result in your subscription being invoked every time the query params change rather than getting the current query params at that moment only. This means that observer.complete() is never called by the internal mechanisms in it, which means an await operation on it will never complete. The trick here if you just want to get the query params once is to import either the take or first operator to get only the first result (the one at the time of execution) which looks like this:
 
@@ -225,14 +225,14 @@ Thanks for reading, hope this article helped you! If you want to see the above c
 
 ----------
 
-### Further Reading
+## Further Reading
 
 Here are some other topics to look at for learning Observable, and recommended further reading:
 
--   Cancelling observables
--   Unsubscribing from observables
--   Handling errors and catching exceptions
--   Writing unit tests that involve observables
--   Using  [pipe() to apply map(), reduce(), and filter()](https://blog.hackages.io/rxjs-5-5-piping-all-the-things-9d469d1b3f44)  on observable results
--   The concepts of  [“Cold” and “Hot” observables](https://blog.thoughtram.io/angular/2016/06/16/cold-vs-hot-observables.html)  (e.g. observables that only begin doing things once there are subscribers versus observables that do stuff right away, with or without subscribers)
--   [distinctUntilChanged()](https://www.learnrxjs.io/operators/filtering/distinctuntilchanged.html)  and  [debounceTime()](https://www.learnrxjs.io/operators/filtering/debouncetime.html)
+* Cancelling observables
+* Unsubscribing from observables
+* Handling errors and catching exceptions
+* Writing unit tests that involve observables
+* Using  [pipe() to apply map(), reduce(), and filter()](https://blog.hackages.io/rxjs-5-5-piping-all-the-things-9d469d1b3f44)  on observable results
+* The concepts of  [“Cold” and “Hot” observables](https://blog.thoughtram.io/angular/2016/06/16/cold-vs-hot-observables.html)  (e.g. observables that only begin doing things once there are subscribers versus observables that do stuff right away, with or without subscribers)
+* [distinctUntilChanged()](https://www.learnrxjs.io/operators/filtering/distinctuntilchanged.html)  and  [debounceTime()](https://www.learnrxjs.io/operators/filtering/debouncetime.html)

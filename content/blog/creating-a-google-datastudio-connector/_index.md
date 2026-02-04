@@ -16,7 +16,7 @@ Being a resident of Toronto, Canada I am going to apply this tutorial to buildin
 
 If you want the full source code and don’t want to bother with the walk through, you can  [find it on GitHub gists](https://gist.github.com/podrezo/55619b3b442f5ab1460f75570274d1b7).
 
-### Developing locally
+## Developing locally
 
 Data Studio connectors are written as an “[Apps Script](https://developers.google.com/apps-script)” which is a method of extending Google cloud applications. App scripts are written in JavaScript and you can use them for many applications, not just Data Studio. You can create and manage your scripts at  [https://script.google.com/home](https://script.google.com/home)  where you will also be able to access an in-browser IDE to edit and publish your code. My recommendation is to not use this interface — the interface feels very clunky and can be quite buggy at times. Instead, Google offers a CLI tool called “[clasp](https://github.com/google/clasp)” that lets you create scripts and sync the code between your local machine and the “Apps Script” site. This gives you many advantages like being able to version control your code in Git, being able to use your favourite development environment, and most importantly it will give you the ability to write unit tests which can be very handy if your connector is not trivial. Follow the instructions in clasps’s readme to login with your Google account that you’ll be working on and enter your working directory for your connector. Create a new script like so:
 
@@ -57,7 +57,7 @@ Most importantly, note the last two lines: the property “exceptionLogging” t
 
 While it is possible to organize code into multiple files and make it easier to work with your application, one of my biggest annoyances with developing anything in apps scripts is that the way Google runs the apps script is that it effectively concatenates all the code files and runs it as one big file no matter what you do. This means that everything outside of functions and classes is automatically global, and even if using the V8 runtime you will be unable to use ES6 style import/export functionality — it will just crash your script. If you’re planning to write anything even remotely complicated into the connector itself, read the section below on “building complex connector code” before you do. For the purposes of this tutorial, we will do everything in the connector itself because it’s a simple use case and I’m primarily concerned with showing you how to build connectors themselves and not the supporting APIs.
 
-### The interface
+## The interface
 
 At it’s most basic, a data studio connector looks like this:
 
@@ -71,7 +71,7 @@ function getData(request) { ... }
 
 Let’s start with the simpler stuff and move on from there.
 
-### isAdminUser()
+## isAdminUser()
 
 The simplest part of this whole experience is this function. It is used to  [enable or disable debugging features](https://developers.google.com/datastudio/connector/debug#enablingdisabling_debug_features). Despite it being listed as optional, you will see “FAILED” entries in your logs without implementing it so I’d recommend just filling it in. In production, you’d probably want to set this value based on some sort of criteria about the user but since we’re just developing based on a tutorial let’s return “true” so that we have all the debug info easily accessible all the time.
 
@@ -81,7 +81,7 @@ function isAdminUser() {
 }
 ```
 
-### getAuthType()
+## getAuthType()
 
 This function returns what authentication scheme we’re going to use. For our example we don’t need to be authenticated so the function body looks like this:
 
@@ -100,7 +100,7 @@ Notice the constant declaration “cc” — this can be put at the very top
 
 If for a real-world scenario you end up having an API that uses authentication, a useful thing to know is that unlike the connector configuration defined by “getConfig()”, the authentication is not accessible to viewers of reports once it is stored. Other authentication types  [include OAuth2, User & Password, and User & Token schemes](https://developers.google.com/datastudio/connector/reference#authtype).
 
-### getConfig(request)
+## getConfig(request)
 
 When you set up a data studio data source the first time you can optionally set some sort of configuration options. In our case, let's say we want to provide the user the option of picking which of the data sets they want to look at:
 
@@ -130,7 +130,7 @@ function getConfig(request) {
 
 The configuration can get pretty advanced as you can use a multi-stepped configuration process and and various types of controls into it. For details on that, see  [the official docs](https://developers.google.com/datastudio/connector/reference#getconfig). One thing to note is the “setDateRangeRequired” field — if set to true then this allows the user to specify a date range that is of interest to them. It is really handy for generating reports that only need a sub-section of the timeframe that is offered by the data set and allows users to zero-in on periods that are of interest to them. For this tutorial we’re going to keep it a bit simpler and set it to false.
 
-### getSchema(request)
+## getSchema(request)
 
 This function returns the full list of columns and the columns’ data types. It is called whenever the connector is configured so that Data Studio knows what is available to it from a data source that uses this connector. Here’s what that looks like when you’re adding a data source using this connector to your report:
 
@@ -166,11 +166,11 @@ Our data has the following shape:
 
 But our schema is going to look like this:
 
--   The full name of the councillor
--   The session date and time (we will use the start time only)
--   The name of the committee
--   The meeting number
--   Whether the councilor was present
+* The full name of the councillor
+* The session date and time (we will use the start time only)
+* The name of the committee
+* The meeting number
+* Whether the councilor was present
 
 We will need to re-format the data in the getData() method to fit this schema in our connector code. The rest of the fields we will ignore for the purposes of this tutorial as they’re not too interesting (such as the session end time).
 
@@ -248,7 +248,7 @@ function getSchema(request) {
 
 Most notably, notice that we must enumerate all the fields that we want to have available in the data source.
 
-### getData(request)
+## getData(request)
 
 We’re almost at the finish line for the coding part — we need to actually fetch the data from the API and return the data as well as the corresponding data type for the returned column(s). A crucial detail to know here is that getData() will be called once for every single chart/control you have in your report that uses this data source. The way Data Studio works is that in your chart you select which fields you’re interested in working with for that particular control and then getData will provide a “request” object with those fields specified in the object. The body of the method is expected to return exactly those fields and in exactly the order that was requested.
 
@@ -334,7 +334,7 @@ function _getDataField(entity, fieldId) {
 }
 ```
 
-### Deploying the connector
+## Deploying the connector
 
 Open your  [Google Scripts](https://script.google.com/home)  interface and find your project in the list. Go to "Open Project" to open the online IDE. Go to "Publish" and then "Deploy from manifest…"
 
@@ -372,17 +372,17 @@ Stats shown for 2014–2018 period
 
 I hope you enjoyed this tutorial. There’s a lot of useful additional info below but you should now have the fundamentals.
 
-### Additional Tips & Pitfalls
+## Additional Tips & Pitfalls
 
 Here’s a few more tips that you may find useful.
 
-#### Logging & Exceptions
+### Logging & Exceptions
 
 To see your log outputs and stack traces you can visit the Google Scripts interface, click your script, and go to "My Executions" on the sidebar.
 
 ![Google Apps Script executions log showing errors](apps-script-executions-log.png)
 
-#### Apps scripts use Google OAuth permissions
+### Apps scripts use Google OAuth permissions
 
 This was painful to debug because there was no error messages for it, but you should be aware that apps scripts are limited in scope in what they can access. If you need to access an external service (like hitting a web API) the script will need to have that permission granted to it when it is added to Data Studio. There is no place to define which scopes you need — Google will automatically pick up what permissions the script needs at the time you add it to Data Studio. Unfortunately, there isn’t really a clear indication of this and there’s no way to refresh the permissions so if you add the connector into Data Studio before you actually use that scope then when you do start accessing APIs your script will just fail with no indication as to what went wrong. If this happens, you need to remove the connector and then add it again.
 
@@ -390,11 +390,11 @@ This was painful to debug because there was no error messages for it, but you sh
 
 Notice the "Connect to an external service" permission since we are using "UrlFetchApp"
 
-#### Sharing your connector with others
+### Sharing your connector with others
 
 When you develop your connector, it will be accessible to your own Google account only. It will show up in the gallery of community connectors for you only. You can then “share” your script with individuals or your organization to let them run the connector without exposing it to the world. To do so, go to the scripts interface and click the “share” button same as you would for a Google Drive document. If you want to, you can submit your connector to Google for review to be added to the public list of connectors available to the world.
 
-#### Storing Authentication Values
+### Storing Authentication Values
 
 If you use a data source that requires storing credentials, such as a username and password then you’ll need to store those values as they should not be part of the connector’s configuration (since that configuration data is visible to editors of the report). Google provides the  [PropertiesService](https://developers.google.com/apps-script/reference/properties/properties-service)  to do just that. The properties service is a key-value store that has three possible vaults: document, script, and user. For data studio connectors you will almost definitely want the user properties which you can get, set and delete like so:
 
@@ -407,7 +407,7 @@ userProperties.deleteProperty('myservice.username');
 
 You can use this in the resetAuth() and setCredentials() methods for example.
 
-#### Sending better error messages to the user
+### Sending better error messages to the user
 
 If you want to show an error message to the end-user in Data Studio that’s consuming the report, such as in the case where the API call failed and you know the reason why (like perhaps the credentials are wrong) you can do so quite simply with this handy helper method:
 
@@ -421,13 +421,13 @@ function sendUserError(message) {
 
 Now you can just call this method with a message and it will be displayed directly to the user in a modal window.
 
-#### Adding unit tests for data studio connectors
+### Adding unit tests for data studio connectors
 
 When I initially tried to add some unit tests for my project, I got stuck because almost all the methods in the Data Studio API are chained methods and really hard to mock, as well as using lots of globals. My colleagues recommended this article called “[Don’t Mock What You Don’t Own](https://github.com/testdouble/contributing-tests/wiki/Don%27t-mock-what-you-don%27t-own)” and it made a huge difference for me here so I’d highly recommend it.
 
 The gist is since we do not control the data studio API, try to abstract it away in a way that is meaningful to your own code that interacts with it then mock that interface.
 
-#### Building complex connector code
+### Building complex connector code
 
 I strongly recommend to keep your connector as “dumb” as possible and do as much as possible in an external system like in a serverless function for many reasons including performance, ease of maintenance, readability, and more. If you absolutely must build all your connector logic into the connector itself then you’ll probably run into a wall when you try to add unit tests and use multiple files. The problem being that Data Studio does not support imports/exports and instead treats all your files as one steaming hot pile of concatenated mess. To this end, while I don’t recommend it, you can use good old “gulp” to get this done. The way I managed to get this to work is to use require() and module.export as usual, and consume those separate files using  [jest](https://jestjs.io/)  like any normal project but before deploying to Google I’d run a gulp script that removes all the imports by surrounding relevant lines with this:
 
@@ -463,9 +463,9 @@ exports.default = series(copyManifest, build, run('clasp push'));
 
 This will build the production version of your code into the “dist” directory and also run “clasp push” for you to deploy it.
 
-### Further Reading
+## Further Reading
 
--   [Google’s official reference guide](https://developers.google.com/datastudio/connector/reference)
--   [Google’s official developer guide](https://developers.google.com/datastudio/connector)
--   [Data Studio connector examples repository](https://github.com/googledatastudio/community-connectors)
--   [Google’s official walk-through of developing a connector](https://codelabs.developers.google.com/codelabs/community-connectors)
+* [Google’s official reference guide](https://developers.google.com/datastudio/connector/reference)
+* [Google’s official developer guide](https://developers.google.com/datastudio/connector)
+* [Data Studio connector examples repository](https://github.com/googledatastudio/community-connectors)
+* [Google’s official walk-through of developing a connector](https://codelabs.developers.google.com/codelabs/community-connectors)

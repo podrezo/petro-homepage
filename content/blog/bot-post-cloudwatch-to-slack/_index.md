@@ -1,6 +1,6 @@
 ---
 title: "Bot to post CloudWatch logs to a Slack channel using Ruby & AWS Lambda"
-# image: /images/blog/quick-intro-to-aws-step-functions-using-serverless-framework/image0.jpeg
+image: /blog/bot-post-cloudwatch-to-slack/cover.jpg
 summary: "Use AWS Lambda and Ruby to create a bot that posts CloudWatch logs to a Slack channel."
 first_published: 2020-02-15
 ---

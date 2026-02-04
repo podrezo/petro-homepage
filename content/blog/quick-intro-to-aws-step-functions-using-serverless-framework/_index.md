@@ -1,6 +1,6 @@
 ---
 title: "Quick intro to AWS Step Functions using Serverless Framework"
-# image: /images/blog/quick-intro-to-aws-step-functions-using-serverless-framework/image0.jpeg
+image: /blog/quick-intro-to-aws-step-functions-using-serverless-framework/cover.jpg
 summary: "2024 Update: There’s been some updates on the serverless framework since 2021 when I published this originally. While following the steps of my own article in 2024 I noticed a few quirks that one should account for — see the bottom of this article for details."
 first_published: 2021-03-15
 ---

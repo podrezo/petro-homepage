@@ -1,6 +1,6 @@
 ---
 title: "Angular: Observables, async/await, and Promises, oh my!"
-# image: /images/blog/quick-intro-to-aws-step-functions-using-serverless-framework/image0.jpeg
+image: /blog/angular-observables-async-await-and-promises/cover.jpg
 summary: "Demystifying Angular's use of Observables, async/await, and Promises: A comprehensive guide to understanding and effectively utilizing these asynchronous programming concepts in Angular applications."
 first_published: 2018-01-09
 ---

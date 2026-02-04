@@ -1,6 +1,6 @@
 ---
 title: "Creating a Google Data Studio connector"
-# image: /images/blog/quick-intro-to-aws-step-functions-using-serverless-framework/image0.jpeg
+image: /blog/creating-a-google-datastudio-connector/cover.jpg
 summary: "How to plug in custom code into Google's Data Studio to create custom data visualizations"
 first_published: 2020-10-06
 ---

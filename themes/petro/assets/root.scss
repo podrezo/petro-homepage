@@ -28,11 +28,6 @@ $border-radius: .375rem !default;
   color: #BF0F30;
 }
 
-.breadcrumbnav {
-  // font-size: 0.8em;
-}
-
-
 $font-family-sans-serif: 'Dosis', -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !default;
 $font-family-monospace:  'Fira Code', SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
 $font-family-base:       $font-family-sans-serif !default;
@@ -46,6 +41,7 @@ $green: #A6E22E !default;
 $orange: #FD971F !default;
 $purple: #AE81FF !default;
 $pink: #F92672 !default;
+$darkpink: darken($pink, 15%); // Custom for hover states
 $blue: #66D9EF !default;
 // Not defined: $blue, $indigo, $purple, $pink, $red, $cyan
 
@@ -72,10 +68,17 @@ $body-bg:       $black !default;
 $breadcrumb-bg: $alt-background-color;
 $breadcrumb-border-radius: $border-radius !default;
 $breadcrumb-active-color: $orange !default;
-
 $breadcrumb-padding-y: $spacer !default;
 $breadcrumb-padding-x: $spacer !default;
 $breadcrumb-divider: url("/images/breadcrumb-separator.svg");
+
+$nav-link-font-size: 1.2rem !default;
+$nav-link-font-weight: 800 !default;
+$nav-link-color: $pink !default;
+$nav-link-hover-color: $darkpink !default;
+$nav-underline-link-active-color: $orange !default;
+$nav-underline-gap: 2rem !default;
+
 $card-bg: $alt-background-color !default;
 $link-color:    $green !default;
 $text-muted: $gray-600 !default;
@@ -164,18 +167,13 @@ article ul {
   color: $green;
 }
 
-nav {
-  display: block;
-  font-size: 1.2rem;
-
+.breadcrumbnav {
   a {
-    font-weight: 800;
-    color: $pink;
-    transition: color 0.2s ease;
     text-decoration: none;
+    color: $pink;
 
     &:hover {
-      color: darken($pink, 15%);
+      color: $darkpink;
     }
   }
 }

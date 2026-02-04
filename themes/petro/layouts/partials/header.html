@@ -21,15 +21,11 @@
   <div class="container mt-5">
     <header class="mb-5">
       <h1 class="title"><img src="/braces.svg" type="image/svg+xml"/> {{ .Site.Title }} <small>Software Engineer</small></h1>
-      <nav class="mt-5">
-        <ul class="nav justify-content-center">
+      <nav class="nav nav-underline justify-content-center mt-5">
           {{ range .Site.Pages.ByWeight}}
             {{ if .Params.show_in_menu }}
-              <li class="nav-item">
-                <a class="nav-link" href="{{ .Permalink }}">{{ .Title }}</a>
-              </li>
+              <a class="nav-link{{ if eq $.Permalink .Permalink }} active{{ end }}"{{ if eq $.Permalink .Permalink }} aria-current="page"{{ end }} href="{{ .Permalink }}">{{ .Title }}</a>
             {{ end }}
           {{ end }}
-        </ul>
       </nav>
     </header>

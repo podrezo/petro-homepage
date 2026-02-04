@@ -1,6 +1,6 @@
 ---
 title: Jira Connector for Google Data Studio
-image: /images/projects/jira-datastudio/datastudio-example.png
+image: /projects/jira/datastudio-example.png
 summary: This community connector enables Google Data Studio to crunch Kanban-type statistics like lead time directly from Jira's API.
 ---
 
@@ -8,7 +8,7 @@ summary: This community connector enables Google Data Studio to crunch Kanban-ty
 
 Jira for Google Data Studio is a community connector for Google's Data Studio product. It allows you to pull statistics like story lead time into Data Studio and generate reports that help your team gather insights into potential process changes that may improve delivery.
 
-![Example chart showing team throughput](/images/projects/jira-datastudio/datastudio-example.png)
+![Example chart showing team throughput](datastudio-example.png)
 
 ## How does it work?
 

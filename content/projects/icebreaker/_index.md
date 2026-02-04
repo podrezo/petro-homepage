@@ -1,6 +1,6 @@
 ---
 title: Icebreaker
-image: /images/projects/icebreaker.jpg
+image: /projects/icebreaker/icebreaker.jpg
 summary: A Chrome extension that generates icebreaker questions for team meetings.
 ---
 
@@ -12,4 +12,4 @@ The extension transforms those awkward "how's everyone doing?" moments into genu
 
 You can find the source code at [podrezo/icebreaker](https://github.com/podrezo/icebreaker) on GitHub or in the chrome web store [here](https://chromewebstore.google.com/detail/icebreaker/impckacciegdbcnfpjihpdkclolbjida?fbclid=IwY2xjawM9hHhleHRuA2FlbQIxMABicmlkETFqWWFONHZXZTdnalY1WkJxAR6-tKgACGWRdPgLkGabCzM09R_uGbwqoTli6n-CIc8DC0We2BXOxFX6EvRuCA_aem_N-Ut5PhWYH3zQ0Iz8kAihw).
 
-![Icebreaker Screenshot](/images/projects/icebreaker.jpg)
+![Icebreaker Screenshot](icebreaker.jpg)

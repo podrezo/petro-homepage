@@ -24,10 +24,6 @@ $spacer: 1rem !default;
 $border-radius: .375rem !default;
 // END BOOTSTRAP DEFAULTS
 
-.red {
-  color: #BF0F30;
-}
-
 $font-family-sans-serif: 'Dosis', -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !default;
 $font-family-monospace:  'Fira Code', SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
 $font-family-base:       $font-family-sans-serif !default;
@@ -88,20 +84,51 @@ $pre-color: $orange !default;
 $line-height-base:            1.7 !default;
 $font-size-base:              1.1rem !default;
 
-.title {
-  img {
-    height: 1.2em;
-    vertical-align: bottom;
+.brand {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+
+  .logo img {
+    height: 7.5rem;
   }
-  small {
-    font-size: 0.6em;
-    color: $text-muted;
+
+  .text {
+    display: flex;
+    flex-direction: column;
+
+    .title {
+      font-size: 2.75rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .subtitle {
+      font-size: 1.5rem;
+      color: $text-muted;
+    }
   }
 }
 
 // Bootstrap and its default variables
 @import "./bootstrap/bootstrap.scss";
 
+@include media-breakpoint-down(md) {
+  .brand {
+    justify-content: center;
+
+    .logo img {
+      height: 5rem;
+    }
+
+    .text {
+      .title {
+        font-size: 2rem;
+      }
+    }
+  }
+}
 
 .item-grid {
   display: grid;

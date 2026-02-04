@@ -20,7 +20,13 @@
   <!-- Page Content -->
   <div class="container mt-5">
     <header class="mb-5">
-      <h1 class="title"><img src="/braces.svg" type="image/svg+xml"/> {{ .Site.Title }} <small>Software Engineer</small></h1>
+      <div class="brand">
+        <div class="logo"><img src="/braces.svg" type="image/svg+xml"/></div>
+        <div class="text">
+          <div class="title">{{ .Site.Title }}</div>
+          <div class="subtitle">Software Engineer</div>
+        </div>
+      </div>
       <nav class="nav nav-underline justify-content-center mt-5">
           {{ range .Site.Pages.ByWeight}}
             {{ if .Params.show_in_menu }}

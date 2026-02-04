@@ -19,12 +19,17 @@
   src: url("fonts/FiraCode-Regular.ttf") format("truetype");
 }
 
+// BOOTSTRAP DEFAULTS - NEEDED FOR REFERENCE TO OVERRIDE DEFAULTS FOR OTHER VALUES
+$spacer: 1rem !default;
+$border-radius: .375rem !default;
+// END BOOTSTRAP DEFAULTS
+
 .red {
   color: #BF0F30;
 }
 
 .breadcrumbnav {
-  font-size: 0.8em;
+  // font-size: 0.8em;
 }
 
 
@@ -64,8 +69,13 @@ $alt-background-color: $gray-900;
 $primary:       $pink !default;
 $secondary:     $purple !default;
 $body-bg:       $black !default;
-$breadcrumb-active-color: $gray-400 !default;
 $breadcrumb-bg: $alt-background-color;
+$breadcrumb-border-radius: $border-radius !default;
+$breadcrumb-active-color: $orange !default;
+
+$breadcrumb-padding-y: $spacer !default;
+$breadcrumb-padding-x: $spacer !default;
+$breadcrumb-divider: url("/images/breadcrumb-separator.svg");
 $card-bg: $alt-background-color !default;
 $link-color:    $green !default;
 $text-muted: $gray-600 !default;
@@ -162,6 +172,7 @@ nav {
     font-weight: 800;
     color: $pink;
     transition: color 0.2s ease;
+    text-decoration: none;
 
     &:hover {
       color: darken($pink, 15%);

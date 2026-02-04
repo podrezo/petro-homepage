@@ -6,7 +6,7 @@ show_in_menu: true
 
 One of my passions in life is sharing knowledge. To that end, I have increasingly been participating as a mentor *(with regards to the field of Software Engineering specifically)* in various contexts: at work, through the University of Toronto, and just on an ad-hoc basis with friends of friends and aquanintances or through online mediums like Reddit. Many times I find that the questions I get from my mentees are very similar or that a particular concept is so fundamental that at some point it's worth just writing it out in detail and referencing it later. For this purpose, I have created this section of my website to document some of the more common questions I get and to provide a resource for those who might benefit from it.
 
-{{< picture-with-caption image="/images/mentorship/petro-presentation.jpg" caption="Pictured above: Me giving a technical presentation at work back in 2018" alt="Petro Giving a Presentation" >}}
+{{< picture-with-caption image="/mentorship/petro-presentation.jpg" caption="Pictured above: Me giving a technical presentation at work back in 2018" alt="Petro Giving a Presentation" >}}
 
 ## A bit about me
 

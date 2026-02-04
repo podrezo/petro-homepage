@@ -1,6 +1,6 @@
 ---
 title: How to Rock an Online Presentation
-image: /images/mentorship/presentation.png
+image: /mentorship/online-presentations/presentation.png
 summary: Discover how to transform your next online presentation from a monologue to a dialogue, engaging audiences in a way they never forget
 ---
 
@@ -34,4 +34,4 @@ By adopting these strategies, you can elevate your online presentations from mer
 
 Ensure you use the right tool for the job too; tools like Miro can be great for small groups but terrible for large groups due to the amount of chaos that can ensue. Tools like AhaSlides are great for large groups but can be overkill for small groups.
 
-![Bad use of Miro: large groups](/images/mentorship/big-miro.png)
+![Bad use of Miro: large groups](big-miro.png)

@@ -1,6 +1,6 @@
 ---
 title: Recommendations
-image: /images/mentorship/recommendations.png
+image: /mentorship/recommendations/recommendations.png
 summary: Books, podcasts, etc. that I recommend
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Starting off & Great Questions
-image: /images/mentorship/raised-hand.png
+image: /mentorship/starting-off/raised-hand.png
 summary: Here I'll cover things to establish before starting a mentorship and some fantastic questions to ask a mentor.
 ---
 

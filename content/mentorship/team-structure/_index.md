@@ -1,6 +1,6 @@
 ---
 title: Team Dynamics & Daily Life
-image: /images/mentorship/team.png
+image: /mentorship/team-structure/team.png
 summary: Engineers, Designers, and QAs, oh my!
 ---
 
@@ -8,7 +8,7 @@ summary: Engineers, Designers, and QAs, oh my!
 
 Here's an example of how a company might be structured. The example here is the product department of a product company (consulting firms typically look a little bit different) and we've got two teams, one is a smaller one that's running a bit more lean (Team B) and one is a bit larger with a larger beadth of roles.
 
-![Team Structure](/images/mentorship/team-structure.jpg)
+![Team Structure](team-structure.jpg)
 
 Here are some key concepts:
 
@@ -36,4 +36,4 @@ A typical day as a software developer is diverse and depends greatly on the work
 
 In general, teams want to have autonomy over the "how" of a project, but they need to be aligned on the "what" and "why" or else you get trouble. This comic from [Spotify's Squad Framework](https://medium.com/pm101/spotify-squad-framework-part-i-8f74bcfcd761) (drawing by Henrik Kniberg) does a fantastic job of illustrating the concept of alignment and autonomy. The idea is that a team should be aligned on the "what" and "why" of a project, but should have autonomy over the "how". This is a concept that I think is very important to understand and is a great topic to discuss with a mentor.
 
-![Alignment and Autonomy](/images/mentorship/alignment-autonomy.png)
+![Alignment and Autonomy](alignment-autonomy.png)

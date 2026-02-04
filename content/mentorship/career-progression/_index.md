@@ -1,12 +1,12 @@
 ---
 title: Career Progression
-image: /images/mentorship/mountain.png
+image: /mentorship/career-progression/mountain.png
 summary: Climbing up the ranks can be tough, but very rewarding.
 ---
 
 Here's a chart I put together that highlights an example of what the roles and progressions look like for engineer-type positions at a hypothetical software company. This chart is informed by my previous jobs and is somewhat an amalagamation of several companies rather than example of any one particular company. Every company is going to modify their structure to fit their needs and culture, but this is a good starting point for understanding the general progression of a software engineer.
 
-![Software Roles](/images/mentorship/software-roles.jpg)
+![Software Roles](software-roles.jpg)
 
 The rows in the chart represent different streams like architecture and management. The horizontal position loosely represents the seniority in the company.
 

@@ -11,10 +11,6 @@ first_published: 2021-03-15
 
 While I am already fairly familiar with AWS Lambda, the platform for doing serverless computation at Amazon, I was not familiar with the "Step Function" aspect until I was introduced to it at work. To oversimplify a bit: step functions are a way to run multiple lambda functions* sequentially, like a state machine.
 
-![Architectural photo of stepped structures](steps-architecture-photo.jpeg)
-
-Photo by  [Ankush Rathi](https://www.pexels.com/@ankush-rathi-154135?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels)  from [Pexels](https://www.pexels.com/photo/brown-concrete-door-925067/?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels)
-
 ### Pros & Cons (vs. one “big” lambda)
 
 Some gains of doing it this way rather than doing one bigger lambda function to handle all concerns are:

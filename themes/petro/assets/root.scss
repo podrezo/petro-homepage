@@ -213,3 +213,33 @@ article ul {
     }
   }
 }
+
+footer {
+  background-color: $alt-background-color;
+  border-radius: $border-radius;
+  padding: $spacer;
+
+  a {
+    text-decoration: none;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .contact-link-item {
+    display: flex;
+    flex-direction: row;
+    gap: 0.3rem;
+    align-items: center;
+  }
+
+  .platform-icon {
+    height: var(--bs-body-font-size);
+    width: var(--bs-body-font-size);
+  }
+}

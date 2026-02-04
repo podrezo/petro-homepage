@@ -57,10 +57,15 @@ $light:         $gray-300 !default;
 $body-color: $light !default;
 $alt-background-color: $gray-900;
 
-// Custom color variables
+// Custom overrides
 $primary:       $pink !default;
 $secondary:     $purple !default;
 $body-bg:       $black !default;
+
+// $hr-color: $pink !default;
+$hr-border-color: $purple !default;
+$hr-opacity: 0.5 !default;
+
 $breadcrumb-bg: $alt-background-color;
 $breadcrumb-border-radius: $border-radius !default;
 $breadcrumb-active-color: $orange !default;

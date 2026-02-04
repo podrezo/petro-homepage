@@ -1,7 +1,7 @@
 ---
 title: "Using a reverse proxy with your web application"
 image: /blog/using-a-reverse-proxy-with-your-web-application/cover.jpg
-summary: "Use AWS Lambda and Ruby to create a bot that posts CloudWatch logs to a Slack channel."
+summary: "Discover the benefits of using Apache or NGINX as a reverse proxy with your web application for better performance and reliability."
 first_published: 2019-09-11
 ---
 

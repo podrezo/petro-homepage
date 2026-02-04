@@ -1,7 +1,7 @@
 ---
 title: "AWS Step Functions using Serverless Framework"
 image: /blog/quick-intro-to-aws-step-functions-using-serverless-framework/cover.jpg
-summary: "Step functions allow you to orchestrate multiple AWS Lambda functions into a state machine workflow. Here's a quick intro on how to get started using the Serverless Framework."
+summary: "Learn how to orchestrate multiple AWS Lambda functions into a state machine workflow using AWS Step Functions and Serverless Framework."
 first_published: 2021-03-15
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "Creating a Google Data Studio connector"
 image: /blog/creating-a-google-datastudio-connector/cover.jpg
-summary: "How to plug in custom code into Google's Data Studio to create custom data visualizations"
+summary: "A comprehensive guide to building custom Google Data Studio connectors using Apps Script to connect external data sources."
 first_published: 2020-10-06
 ---
 

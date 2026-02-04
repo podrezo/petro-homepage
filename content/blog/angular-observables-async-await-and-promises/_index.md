@@ -1,7 +1,7 @@
 ---
 title: "Angular: Observables, async/await, and Promises, oh my!"
 image: /blog/angular-observables-async-await-and-promises/cover.jpg
-summary: "Demystifying Angular's use of Observables, async/await, and Promises: A comprehensive guide to understanding and effectively utilizing these asynchronous programming concepts in Angular applications."
+summary: "A practical guide to understanding RxJS Observables in Angular, comparing them to Promises, and using async/await for asynchronous operations."
 first_published: 2018-01-09
 ---
 

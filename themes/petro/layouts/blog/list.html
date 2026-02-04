@@ -1,0 +1,40 @@
+{{ partial "header.html" . }}
+
+{{ partial "breadcrumb.html" . }}
+
+<article class="row">
+  <div class="col-lg-12">
+    {{ .Content }}
+  </div>
+</article>
+
+<div class="container mt-4">
+  <div class="row">
+    {{ range .Pages }}
+      <div class="col-12">
+        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+          <div class="col p-4 d-flex flex-column position-static">
+            <h3 class="mb-0">{{ .Title }}</h3>
+            {{ with .Params.first_published }}
+              <div class="mb-1 text-body-secondary">
+                <time datetime="{{ . }}">{{ dateFormat "January 2, 2006" . }}</time>
+              </div>
+            {{ end }}
+            <p class="card-text mb-auto">{{ .Params.Summary }}</p>
+            <a href="{{ .Permalink }}" class="icon-link gap-1 icon-link-hover stretched-link">
+              Continue reading
+              <span aria-hidden="true">→</span>
+            </a>
+          </div>
+          <div class="col-auto d-none d-lg-block">
+            {{ with .Params.Image }}
+              <img src="{{ . }}" alt="{{ $.Title }}" class="bd-placeholder-img" width="250" height="250" style="object-fit: cover;" />
+            {{ end }}
+          </div>
+        </div>
+      </div>
+    {{ end }}
+  </div>
+</div>
+
+{{ partial "footer.html" . }}

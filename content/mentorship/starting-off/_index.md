@@ -60,74 +60,45 @@ Additionally, here are some questions I sourced from U of T's mentorship program
 
 ### Obtaining Employment & Career Advancement
 
-What are the most important skills someone should have to find success in this occupation?
-
-What types of part-time, full-time or summer jobs should I be doing right now which may prepare me for this career path?
-
-What avenues did you explore to find job openings in your field?
-
-What kind of experience is needed to obtain an entry-level position in this profession?
-
-How long should I expect to stay in an entry-level position?
-
-What are the opportunities for advancement?
-
-Is this type of work available on an international basis (without further training)?
-
-In what ways did your education contribute to your career?
-
-What academic courses do you find most relevant to your day-to-day work?
-
-Is a post-graduate certificate, diploma, or degree necessary within this field?
+* What are the most important skills someone should have to find success in this occupation?
+* What types of part-time, full-time or summer jobs should I be doing right now which may prepare me for this career path?
+* What avenues did you explore to find job openings in your field?
+* What kind of experience is needed to obtain an entry-level position in this profession?
+* How long should I expect to stay in an entry-level position?
+* What are the opportunities for advancement?
+* Is this type of work available on an international basis (without further training)?
+* In what ways did your education contribute to your career?
+* What academic courses do you find most relevant to your day-to-day work?
+* Is a post-graduate certificate, diploma, or degree necessary within this field?
 
 ### Corporate Culture & Expectations
 
-[What do you do in a typical day?](/mentorship/team-structure)
-
-What kind of salary may I expect in an entry-level position?
-
-What are some other jobs in your field that are similar to your own?
-
-What terminology or ideas should I remember when I am applying for a job in this field?
-
-What kind of corporate culture exists in your field?
-
-How many hours are in a typical work week?
-
-What type of supervision is typical in this career?
+* [What do you do in a typical day?](/mentorship/team-structure)
+* What kind of salary may I expect in an entry-level position?
+* What are some other jobs in your field that are similar to your own?
+* What terminology or ideas should I remember when I am applying for a job in this field?
+* What kind of corporate culture exists in your field?
+* How many hours are in a typical work week?
+* What type of supervision is typical in this career?
 
 ### Personal
 
-Who had the most significant impact on you choosing this career?
-
-What are the things you find personally rewarding in your career?
-
-What are the things you find frustrating or disappointing?
-
-What extra-curricular or co-curricular activities should I pursue to help me prepare for this career area?
-
-What kind of volunteer experience would be beneficial?
-
-Why did you get into this field?
-
-Is travel a component of the job?
-
-How stressful is this occupation?
-
-How do you personally balance home and work?
-
-How do you make your commuting time most productive?
-
-What was the most surprising part of your transition from university to work?
-
-What do you see as the biggest challenges for new graduates when they enter your industry?
+* Who had the most significant impact on you choosing this career?
+* What are the things you find personally rewarding in your career?
+* What are the things you find frustrating or disappointing?
+* What extra-curricular or co-curricular activities should I pursue to help me prepare for this career area?
+* What kind of volunteer experience would be beneficial?
+* Why did you get into this field?
+* Is travel a component of the job?
+* How stressful is this occupation?
+* How do you personally balance home and work?
+* How do you make your commuting time most productive?
+* What was the most surprising part of your transition from university to work?
+* What do you see as the biggest challenges for new graduates when they enter your industry?
 
 ### Networking
 
-Who helped you to get into this field?
-
-How important is it to know someone in your profession/industry?
-
-What professional associations or organizations are useful to belong to in this field?
-
-What magazines, journals, or websites are important to read in this field?
+* Who helped you to get into this field?
+* How important is it to know someone in your profession/industry?
+* What professional associations or organizations are useful to belong to in this field?
+* What magazines, journals, or websites are important to read in this field?

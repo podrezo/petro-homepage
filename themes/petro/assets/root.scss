@@ -220,9 +220,11 @@ article ul {
 }
 
 footer {
-  background-color: $alt-background-color;
+  border: $card-border-width solid $gray-900;
   border-radius: $border-radius;
   padding: $spacer;
+  width: min-content;
+  margin: 0 auto;
 
   a {
     text-decoration: none;

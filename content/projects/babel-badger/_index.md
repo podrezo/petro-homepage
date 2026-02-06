@@ -1,5 +1,5 @@
 ---
-title: Babel Badger (Deprecated)
+title: Babel Badger (Deactivated)
 image: /projects/babel-badger/logo.png
 summary: A telegram bot that translates messages using ChatGPT.
 ---
